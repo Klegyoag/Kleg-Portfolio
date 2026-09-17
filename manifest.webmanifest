@@ -1,0 +1,17 @@
+{
+  "name": "Chris Klegar Yoag Developer Portfolio",
+  "short_name": "Chris Klegar",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0A0A0A",
+  "theme_color": "#B11226",
+  "description": "Interactive portfolio for Chris Klegar Yoag, Software Developer and Founder of X10 THINK.",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -143,7 +143,7 @@
     backToTop?.classList.toggle('visible', y > 650);
 
     let current = 'home';
-    sections.forEach(section => {
+    sections.filter(section => !section.hidden).sort((a,b) => a.offsetTop - b.offsetTop).forEach(section => {
       if (y >= section.offsetTop - 180) current = section.id;
     });
     navSectionLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${current}`));
@@ -311,7 +311,7 @@
   updateCompare();
 
   // Skill universe
-  const skillData = {
+  let skillData = {
     dotnet: { icon: '.NET', category: 'Web framework', name: 'ASP.NET Core Development', description: 'Building MVC applications and REST APIs with structured C# code, validation and maintainable project organisation.', meter: 90, level: 'Strong practical skill' },
     csharp: { icon: 'C#', category: 'Programming language', name: 'C# Development', description: 'Writing object-oriented application logic, services, models and backend workflows with readable and reusable code.', meter: 88, level: 'Strong practical skill' },
     sql: { icon: 'SQL', category: 'Database', name: 'SQL Server & T-SQL', description: 'Designing relational schemas, queries, stored procedures and data flows for dependable application behaviour.', meter: 85, level: 'Project-ready skill' },
@@ -329,10 +329,33 @@
     $('#skillMeter').style.width = `${skill.meter}%`;
     $('#skillLevel').textContent = skill.level;
   };
-  $$('.skill-node').forEach(button => button.addEventListener('click', () => {
+  $('#skillsUniverse')?.addEventListener('click', event => {
+    const button = event.target.closest('.skill-node');
+    if (!button) return;
     $$('.skill-node').forEach(item => item.classList.toggle('active', item === button));
     renderSkill(button.dataset.skill);
-  }));
+  });
+  window.addEventListener('portfolio:skills', event => {
+    const items = Array.isArray(event.detail) ? event.detail.slice(0, 18) : [];
+    if (!items.length) return;
+    const universe = $('#skillsUniverse');
+    universe?.classList.toggle('cms-many-skills', items.length > 6);
+    const oldButtons = $$('.skill-node', universe);
+    oldButtons.forEach(node => node.remove());
+    skillData = {};
+    items.forEach((item, index) => {
+      const key = `cms-${index}`;
+      skillData[key] = { icon: item.icon || '◈', category: item.category || '', name: item.name || '', description: item.description || '', meter: Math.max(0, Math.min(100, Number(item.meter) || 0)), level: item.level || '' };
+      const button = document.createElement('button');
+      button.className = `skill-node node-${index % 6 + 1}${index === 0 ? ' active' : ''}`;
+      button.dataset.skill = key;
+      const icon = document.createElement('span'); icon.textContent = item.icon || '◈';
+      const short = document.createElement('small'); short.textContent = item.short || item.name || '';
+      button.append(icon, short);
+      universe?.append(button);
+    });
+    renderSkill('cms-0');
+  });
 
   // Live design lab
   const labPreview = $('#labPreview');
@@ -377,11 +400,12 @@
   updateLab();
 
   // Feedback slider
-  const feedbackCards = $$('.feedback-card');
+  const feedbackCards = () => $$('.feedback-card');
   let feedbackIndex = 0;
-  const renderFeedback = () => feedbackCards.forEach((card,index) => card.classList.toggle('active', index === feedbackIndex));
-  $('#feedbackPrev')?.addEventListener('click', () => { feedbackIndex = (feedbackIndex - 1 + feedbackCards.length) % feedbackCards.length; renderFeedback(); });
-  $('#feedbackNext')?.addEventListener('click', () => { feedbackIndex = (feedbackIndex + 1) % feedbackCards.length; renderFeedback(); });
+  const renderFeedback = () => feedbackCards().forEach((card,index) => card.classList.toggle('active', index === feedbackIndex));
+  $('#feedbackPrev')?.addEventListener('click', () => { const n=feedbackCards().length; if(!n)return; feedbackIndex = (feedbackIndex - 1 + n) % n; renderFeedback(); });
+  $('#feedbackNext')?.addEventListener('click', () => { const n=feedbackCards().length; if(!n)return; feedbackIndex = (feedbackIndex + 1) % n; renderFeedback(); });
+  window.addEventListener('portfolio:principles', () => { feedbackIndex = 0; renderFeedback(); });
 
   // WhatsApp-first contact form with an optional same-origin API endpoint.
   const contactForm = $('#contactForm');
@@ -482,7 +506,18 @@
   const assistantPanel = $('#assistantPanel');
   const assistantMessages = $('#assistantMessages');
   const assistantInput = $('#assistantInput');
-  const assistantKnowledge = Array.isArray(window.PORTFOLIO_ASSISTANT) ? window.PORTFOLIO_ASSISTANT : [];
+  const defaultAssistantKnowledge = Array.isArray(window.PORTFOLIO_ASSISTANT) ? window.PORTFOLIO_ASSISTANT : [];
+  let assistantKnowledge = defaultAssistantKnowledge;
+  let assistantFallback = 'I could not match that precisely. Ask about Chris, X10 THINK, technologies, services, pricing, timeline, deployment or WhatsApp contact.';
+  window.addEventListener('portfolio:assistant', event => {
+    const data = event.detail || {};
+    const entries = (Array.isArray(data.faqs) ? data.faqs : []).filter(item => item.question && item.answer).map(item => ({ keywords: [item.question], examples: [item.question], answer: item.answer }));
+    const knowledge = Array.isArray(data.knowledge) ? data.knowledge.filter(item => item.answer && (item.examples?.length || item.keywords?.length)) : defaultAssistantKnowledge;
+    assistantKnowledge = [...entries, ...knowledge];
+    assistantFallback = data.fallback || assistantFallback;
+    const greeting = $('#assistantMessages .assistant-message.bot');
+    if (greeting && data.intro) greeting.textContent = data.intro;
+  });
   const assistantLauncher = $('#assistantLauncher');
   let assistantLastFocus = null;
 
@@ -530,7 +565,7 @@
       if (score > bestScore) { bestScore = score; best = intent; }
     });
     if (best && bestScore >= 2.35) return best.answer;
-    return 'I could not match that precisely. Ask about Chris, X10 THINK, technologies, services, pricing, timeline, deployment or WhatsApp contact.';
+    return assistantFallback;
   };
   const addAssistantMessage = (text, type) => {
     const message = document.createElement('div');

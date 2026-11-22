@@ -1,10 +1,14 @@
 'use strict';
 
-const CACHE = 'chris-klegar-developer-os-v4';
+const CACHE = 'chris-klegar-developer-os-v5';
 const APP_SHELL = [
   './',
   './index.html',
   './style.css',
+  './cms-style.css',
+  './cms-public.js',
+  './cms-config.js',
+  './cms-defaults.js',
   './site-config.js',
   './assistant-data.js',
   './script.js',
@@ -30,7 +34,7 @@ self.addEventListener('fetch', event => {
   const request = event.request;
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
-  if (url.origin !== self.location.origin || url.pathname.startsWith('/api/')) return;
+  if (url.origin !== self.location.origin || url.pathname.startsWith('/api/') || url.pathname.startsWith('/admin')) return;
 
   if (request.mode === 'navigate') {
     event.respondWith(

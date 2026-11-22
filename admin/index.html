@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Portfolio Studio — Admin</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="admin.css" rel="stylesheet">
+</head>
+<body>
+  <div class="admin-shell" id="dashboard" hidden>
+    <aside class="sidebar" id="sidebar">
+      <a href="./" class="sidebar-brand"><span class="brand-emblem">K<span>·</span></span><span><strong>KLEGAR STUDIO</strong><small>Portfolio command center</small></span></a>
+      <div class="workspace-badge"><span class="workspace-icon">✦</span><span><strong>My Portfolio</strong><small>Content workspace</small></span><span class="workspace-chevron">⌄</span></div>
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="side-nav" id="sideNav" aria-label="CMS sections"></nav>
+      <div class="sidebar-bottom"><a href="/" target="_blank" rel="noopener">↗ <span>Open live portfolio</span></a><button type="button" id="logoutButton">⇥ <span>Sign out</span></button><div class="sidebar-user"><span class="user-avatar">CK</span><span><strong>Administrator</strong><small id="userEmail">Signed in</small></span><span class="online-dot"></span></div></div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar"><div class="topbar-left"><button class="mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button><span class="breadcrumb">Workspace</span><span class="slash">/</span><strong id="breadcrumbTitle">Overview</strong></div><div class="topbar-actions"><div class="connection-chip"><span class="pulse-dot"></span><span id="connectionLabel">Connected</span></div><button class="top-btn" id="previewButton" type="button">◫ <span>Preview site</span></button><button class="top-btn top-btn-primary" type="button" id="publishButton">↗ <span>Publish changes</span></button></div></header>
+      <main class="main-area" id="mainArea">
+        <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+        <section id="overviewView" class="view">
+          <div class="overview-intro"><span class="eyebrow"><span class="tiny-star">✧</span> YOUR CONTENT WORKSPACE</span><h1>Good to have you here<span class="accent-period">.</span></h1><p>Manage your personal brand, update every portfolio section and publish when you're ready.</p></div>
+          <div class="status-panel"><div><span class="status-icon">✦</span><div><h2>Portfolio is ready to evolve.</h2><p>Make edits in a section, save your draft and publish to make it live.</p></div></div><span id="publishStatus" class="status-tag">No pending edits</span></div>
+          <div class="stats-grid"><div class="stat-card"><span class="stat-top">PROJECTS <span>◈</span></span><div class="stat-value" id="statProjects">0</div><span class="stat-foot">Visible work</span></div><div class="stat-card"><span class="stat-top">SERVICES <span>⌘</span></span><div class="stat-value" id="statServices">0</div><span class="stat-foot">Development offerings</span></div><div class="stat-card"><span class="stat-top">SKILLS <span>✳</span></span><div class="stat-value" id="statSkills">0</div><span class="stat-foot">Technical capabilities</span></div><div class="stat-card"><span class="stat-top">JOURNEY <span>◷</span></span><div class="stat-value" id="statJourney">0</div><span class="stat-foot">Timeline milestones</span></div></div>
+          <div class="overview-grid"><div class="panel"><div class="panel-header"><div><span class="eyebrow">QUICK ACCESS</span><h2>Jump into editing</h2></div><span class="muted-icon">⌁</span></div><div class="quick-grid" id="quickGrid"></div></div><div class="panel publishing-panel"><span class="eyebrow">PUBLISHING</span><h2>Your workflow</h2><div class="workflow-step"><span>01</span><div><strong>Edit a section</strong><small>Change the content and images.</small></div></div><div class="workflow-step"><span>02</span><div><strong>Save your draft</strong><small>Keep changes private until ready.</small></div></div><div class="workflow-step"><span>03</span><div><strong>Preview & publish</strong><small>Push content live instantly.</small></div></div><div class="published-time">Last published <strong id="lastPublished">Not yet published</strong></div></div></div>
+          <div class="panel recent-panel"><div class="panel-header"><div><span class="eyebrow">LATEST RELEASES</span><h2>Publication history</h2></div><button class="text-button" id="refreshHistory" type="button">Refresh ↻</button></div><div id="historyList" class="history-list"><p class="empty-text">Connect your CMS to see your publishing history.</p></div></div>
+        </section>
+        <section id="editorView" class="view" hidden><div class="editor-heading"><div><span class="eyebrow" id="editorEyebrow">EDIT CONTENT</span><h1 id="editorTitle">Page section</h1><p id="editorDescription">Update your portfolio content.</p></div><div class="editor-heading-buttons"><button class="top-btn" id="discardButton" type="button">↶ Discard local edits</button><button class="top-btn top-btn-primary" id="saveButton" type="button">✓ Save draft</button></div></div><div class="editor-grid"><form id="editorForm" class="panel editor-form" autocomplete="off"></form><aside class="editor-guide"><div class="guide-icon">✦</div><strong id="guideTitle">Content editor</strong><p id="guideDescription">Save and preview your changes before publishing.</p><div class="guide-note"><b>✧ Draft workflow</b><span>Changes stay private until you click Publish changes.</span></div><button type="button" class="guide-preview" id="sectionPreview">◫ Preview this update ↗</button></aside></div></section>
+      </main>
+    </div>
+  </div>
+  <section class="login-screen" id="loginScreen"><div class="login-background"></div><div class="login-brand"><span class="brand-emblem">K<span>·</span></span><strong>KLEGAR STUDIO</strong></div><div class="login-card"><div class="login-icon">✦</div><span class="eyebrow">PRIVATE WORKSPACE</span><h1>Welcome back<span class="accent-period">.</span></h1><p>Sign in to manage and publish your portfolio.</p><div id="setupMessage" class="setup-message" hidden></div><form id="loginForm"><label>Email address<input id="loginEmail" type="email" required autocomplete="username" placeholder="you@example.com"></label><label>Password<input id="loginPassword" type="password" required autocomplete="current-password" placeholder="Enter password"></label><button class="login-submit" id="loginButton" type="submit">Enter dashboard <span>↗</span></button></form><p id="loginError" role="alert" class="login-error"></p><div class="login-footer">Protected with Supabase Auth + database access rules</div></div><a class="return-site" href="/">← Return to portfolio</a></section>
+  <div class="preview-overlay" id="previewOverlay" hidden><div class="preview-window"><div class="preview-bar"><div><strong>◫ Live draft preview</strong><span>Only visible to you — not yet published</span></div><div class="preview-controls"><button id="previewDesktop" class="active" type="button">▱ Desktop</button><button id="previewMobile" type="button">▯ Mobile</button><button id="previewClose" aria-label="Close preview" type="button">✕</button></div></div><div class="iframe-wrap"><iframe title="Portfolio draft preview" id="previewFrame" src="/" loading="lazy"></iframe></div></div></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="../cms-config.js" defer></script><script src="../cms-defaults.js" defer></script><script src="admin.js" defer></script>
+</body>
+</html>

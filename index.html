@@ -19,7 +19,7 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Allura&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="style.css" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet"/><link href="cms-style.css" rel="stylesheet"/>
 <meta content="Chris Klegar Yoag — Software Developer &amp; X10 THINK Founder" name="twitter:title"/><meta content="ASP.NET Core, C#, SQL Server, REST APIs, responsive interfaces and software development services." name="twitter:description"/><meta content="og-cover.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Chris Klegar Yoag", "jobTitle": "Software & ASP.NET Core Developer", "description": "Software developer and Founder of X10 THINK based in Sri Lanka.", "affiliation": {"@type": "Organization", "name": "X10 THINK"}, "sameAs": ["https://www.linkedin.com/in/chris-klegar-yoag-51b98441b/", "https://github.com/Klegyoag", "https://www.instagram.com/clazzy_kleg/"]}</script></head>
 <body><noscript><div class="noscript-banner">JavaScript is disabled. Core portfolio content is still available, but themes, interactive controls and the assistant require JavaScript.</div></noscript>
 <div aria-hidden="true" class="preloader" id="preloader">
@@ -50,7 +50,7 @@
 <button aria-controls="navLinks" aria-expanded="false" aria-label="Open navigation" class="menu-toggle" id="menuToggle">
 <span></span><span></span><span></span>
 </button>
-<div class="nav-links" id="navLinks"><a class="nav-link active" href="#home">Home</a><a class="nav-link" href="#about">About</a><a class="nav-link" href="#skills">Skills</a><a class="nav-link" href="#journey">Journey</a><a class="nav-link" href="#contact">Contact</a></div>
+<div class="nav-links" id="navLinks"><a class="nav-link active" href="#home">Home</a><a class="nav-link" href="#about">About</a><a class="nav-link" href="#skills">Skills</a><a class="nav-link" href="#projects" id="cmsProjectsNav" hidden>Projects</a><a class="nav-link" href="#journey">Journey</a><a class="nav-link" href="#contact">Contact</a></div>
 <div class="nav-actions">
 <button aria-label="Open command palette" class="shortcut-button" id="commandButton">
 <span>Quick actions</span><kbd>⌘ K</kbd>
@@ -82,7 +82,7 @@
 <h1>I engineer <em>systems.</em><br/>I build <em>APIs.</em><br/>I create <em>experiences.</em></h1>
 <p class="hero-description">A software developer specialising in C#, ASP.NET Core and SQL Server, building dependable full-stack applications, REST APIs and responsive interfaces for practical business needs.</p>
 <div class="hero-actions">
-<a class="button button-primary magnetic" href="#about">About me <span>↗</span></a>
+<a class="button button-primary magnetic" href="#about">About me <span>↗</span></a><a class="button button-outline magnetic" id="cmsCvLink" href="#" hidden download>Download CV ↗</a>
 
 </div>
 <div class="hero-meta">
@@ -160,6 +160,10 @@
 </div>
 </div>
 </div>
+</section>
+<section class="section cms-projects-section" id="projects" hidden>
+<div class="shell"><div class="section-top reveal visible"><div><p class="section-label"><span></span>Selected projects</p><h2>Selected work.<br/><em>Built with purpose.</em></h2></div><p class="section-intro-text">A selection of real-world applications, experiments and solutions.</p></div>
+<div class="cms-projects-grid" id="projectsGrid"></div></div>
 </section>
 <section class="section services-section" id="services">
 <div class="shell">
@@ -258,7 +262,7 @@
 <h2>Need a reliable system<br/>built <em>properly?</em></h2>
 <p>Share the goal, required features and expected timeline. The form validates the details, confirms submission and opens a structured WhatsApp enquiry to Chris.</p>
 <div class="contact-routes"><a href="https://wa.me/94703185080" rel="noopener" target="_blank"><span>◉</span><div><small>WhatsApp / Phone</small><strong>+94 70 318 5080</strong></div><i>↗</i></a><div><span>⌖</span><div><small>Location</small><strong>Nuwara Eliya, Sri Lanka</strong></div></div><div><span>×</span><div><small>Company role</small><strong>Founder, X10 THINK</strong></div></div></div>
-<div class="social-row"><span>Follow the work</span><a aria-label="LinkedIn" href="https://www.linkedin.com/in/chris-klegar-yoag-51b98441b/" rel="noopener" target="_blank">in</a><a aria-label="GitHub" href="https://github.com/Klegyoag" rel="noopener" target="_blank">GH</a><a aria-label="Instagram" href="https://www.instagram.com/clazzy_kleg/" rel="noopener" target="_blank">◎</a></div>
+<div class="social-row"><span>Follow the work</span><a aria-label="LinkedIn" data-cms-social="linkedin" href="https://www.linkedin.com/in/chris-klegar-yoag-51b98441b/" rel="noopener" target="_blank">in</a><a aria-label="GitHub" data-cms-social="github" href="https://github.com/Klegyoag" rel="noopener" target="_blank">GH</a><a aria-label="Instagram" data-cms-social="instagram" href="https://www.instagram.com/clazzy_kleg/" rel="noopener" target="_blank">◎</a></div>
 </div>
 <form class="project-form glass-panel reveal delay-1" id="contactForm" novalidate="">
 <div class="form-step-head"><span>WhatsApp project enquiry</span><small>Usually 2–3 minutes</small></div>
@@ -287,8 +291,8 @@
 <footer class="footer">
 <div class="shell footer-grid">
 <div><a class="brand" href="#home"><span class="brand-mark">CK</span><span class="brand-copy"><strong>Chris Klegar</strong><small>Developer OS</small></span></a><p>Building reliable web applications, REST APIs and database-driven systems.</p></div>
-<div><small>Explore</small><a href="#services">Services</a><a href="#lab">Design Lab</a><a href="#contact">Contact</a></div>
-<div><small>Connect</small><a href="https://www.linkedin.com/in/chris-klegar-yoag-51b98441b/" rel="noopener" target="_blank">LinkedIn</a><a href="https://github.com/Klegyoag" rel="noopener" target="_blank">GitHub</a><a href="https://www.instagram.com/clazzy_kleg/" rel="noopener" target="_blank">Instagram</a><a href="https://wa.me/94703185080" rel="noopener" target="_blank">WhatsApp</a></div>
+<div><small>Explore</small><a href="#services">Services</a><a href="#projects" id="cmsProjectsFooterLink" hidden>Projects</a><a href="#lab">Design Lab</a><a href="#contact">Contact</a></div>
+<div><small>Connect</small><a data-cms-footer-social="linkedin" href="https://www.linkedin.com/in/chris-klegar-yoag-51b98441b/" rel="noopener" target="_blank">LinkedIn</a><a data-cms-footer-social="github" href="https://github.com/Klegyoag" rel="noopener" target="_blank">GitHub</a><a data-cms-footer-social="instagram" href="https://www.instagram.com/clazzy_kleg/" rel="noopener" target="_blank">Instagram</a><a href="https://wa.me/94703185080" rel="noopener" target="_blank">WhatsApp</a></div>
 <div><small>System</small><button id="footerCommand">Command menu <kbd>⌘ K</kbd></button><button id="footerTheme">Switch theme <kbd>T</kbd></button></div>
 </div>
 <div class="shell footer-bottom"><span>© <b id="currentYear"></b> Chris Klegar Yoag. All rights reserved.</span><span>Built with HTML, CSS &amp; JavaScript.</span><a href="#home">Back to top ↑</a></div>
@@ -317,5 +321,5 @@
 </div>
 </div>
 <div aria-live="polite" class="toast" id="toast" role="status"></div>
-<script defer="" src="site-config.js"></script><script defer="" src="assistant-data.js"></script><script defer="" src="script.js"></script></body>
+<script defer="" src="site-config.js"></script><script defer="" src="assistant-data.js"></script><script defer="" src="script.js"></script><script defer="" src="cms-config.js"></script><script defer="" src="cms-defaults.js"></script><script defer="" src="cms-public.js"></script></body>
 </html>

@@ -13,11 +13,11 @@ A static HTML/CSS/JavaScript portfolio for Chris Klegar Yoag, Software & ASP.NET
 - PWA manifest and service worker
 - Social/SEO metadata that does not claim a placeholder production domain
 
-## Intentionally not included yet
+## Optional content / future enhancements
 
-- Project showcase / project screenshots / case-study pages
-- CV download
-- Production canonical URL and sitemap (add these only after the real domain is known)
+- The project showcase is included, but hidden until you add a visible project through the admin dashboard.
+- The CV download button is included, but hidden until you supply or upload a CV PDF.
+- Server-rendered canonical/social metadata and a sitemap (a client-rendered CMS cannot guarantee social bot previews).
 
 ## Run locally
 
@@ -34,4 +34,10 @@ Then open `http://localhost:5500`.
 1. Connect the final domain.
 2. Add the real canonical URL and absolute Open Graph URL/image metadata.
 3. Generate `sitemap.xml` using that real domain and add its URL to `robots.txt`.
-4. Add a CV later only when the final PDF is ready.
+4. Upload your final CV PDF through the admin dashboard when ready.
+
+## New: Portfolio Studio CMS
+
+The repository now includes the **`/admin`** content-management dashboard with editable content, drafts, preview, publishing, images and a version history. All updates are stored in **Supabase** under RLS. There are no admin credentials in the source code.
+
+**Configuration:** Follow [`ADMIN-SETUP.md`](ADMIN-SETUP.md) before trying to log in or publish. The original static frontend still works without CMS setup.

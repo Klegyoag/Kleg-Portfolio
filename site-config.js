@@ -1,6 +1,6 @@
 'use strict';
 
-window.SITE_CONFIG = Object.freeze({
+window.SITE_CONFIG = {
   ownerName: 'Chris Klegar Yoag',
   shortName: 'Chris Klegar',
   role: 'Software & ASP.NET Core Developer',
@@ -11,4 +11,4 @@ window.SITE_CONFIG = Object.freeze({
   githubUrl: 'https://github.com/Klegyoag',
   linkedinUrl: 'https://www.linkedin.com/in/chris-klegar-yoag-51b98441b/',
   instagramUrl: 'https://www.instagram.com/clazzy_kleg/'
-});
+};

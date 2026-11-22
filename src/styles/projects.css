@@ -1,0 +1,28 @@
+/* Projects section extends original portfolio design tokens. */
+.cms-projects-section[hidden],#cmsCvLink[hidden]{display:none!important}
+.cms-projects-section{padding-block:clamp(80px,10vw,140px)}
+.cms-projects-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:42px}
+.cms-project-card{overflow:hidden;border:1px solid rgba(180,180,195,.18);border-radius:24px;background:rgba(120,120,135,.065);transition:transform .3s,border-color .3s;min-width:0}
+.cms-project-card:hover{transform:translateY(-7px);border-color:var(--accent, #b14258)}
+.cms-project-media{height:218px;position:relative;display:grid;place-items:center;background:radial-gradient(circle at 70% 20%,rgba(196,67,87,.25),transparent 60%),linear-gradient(135deg,#211b27,#09090e);overflow:hidden}
+.cms-project-media img{width:100%;height:100%;object-fit:cover;display:block}
+.cms-project-symbol{font-size:4.5rem;color:rgba(240,130,155,.7)}
+.cms-project-featured{position:absolute;left:16px;top:16px;background:#ffffffeb;color:#16131d;border-radius:30px;padding:6px 12px;font:700 11px Manrope,sans-serif}
+.cms-project-body{padding:26px;display:flex;flex-direction:column;min-height:285px}
+.cms-project-category{text-transform:uppercase;font-size:11px!important;letter-spacing:2px;color:#ca8290;font-weight:800;margin-bottom:8px}
+.cms-project-body h3{font-size:clamp(20px,2vw,24px);line-height:1.2;margin:0 0 12px;overflow-wrap:anywhere}
+.cms-project-description{font-size:14px;line-height:1.7;color:#aba6b4;flex:1}
+.cms-project-tags{display:flex;gap:7px;flex-wrap:wrap;margin:15px 0}
+.cms-project-tags span{font-size:11px;color:#d9d3df;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:5px 10px}
+.cms-project-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.cms-project-links a{font-size:13px;font-weight:800;color:inherit}
+.cms-project-links a:hover{text-decoration:underline}
+.cms-service-demo{display:flex;align-items:center;justify-content:center;min-height:70px;font-size:38px!important;font-weight:800;letter-spacing:4px;opacity:.55}
+@media(max-width:960px){.cms-projects-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.cms-projects-grid{grid-template-columns:1fr}.cms-project-media{height:210px}}
+#cmsProjectsNav[hidden],#cmsProjectsFooterLink[hidden]{display:none!important}
+
+.skills-universe.cms-many-skills{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-content:center;place-items:stretch;min-height:380px}
+.skills-universe.cms-many-skills .skill-node{position:static!important;left:auto!important;top:auto!important;bottom:auto!important;right:auto!important;transform:none!important;width:100%!important;min-width:0;height:90px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.skills-universe.cms-many-skills .universe-rings,.skills-universe.cms-many-skills .universe-core{display:none}
+@media(max-width:620px){.skills-universe.cms-many-skills{grid-template-columns:repeat(2,minmax(0,1fr))}}

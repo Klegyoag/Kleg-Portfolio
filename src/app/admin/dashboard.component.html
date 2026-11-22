@@ -1,0 +1,97 @@
+<div class="studio-app">
+  <aside class="studio-sidebar" [class.open]="sidebarOpen">
+    <div class="studio-side-top"><a class="studio-brand" routerLink="/"><span class="studio-mark">K</span><span><strong>KLEGAR STUDIO</strong><small>PORTFOLIO OS</small></span></a><button class="studio-side-close" type="button" (click)="sidebarOpen = false" aria-label="Close menu">×</button></div>
+    <div class="studio-side-label">WORKSPACE</div>
+    <nav class="studio-side-nav" aria-label="Admin navigation">
+      <button type="button" [class.active]="activeId === 'overview'" (click)="choose('overview')"><span>▦</span> Overview</button>
+      <button type="button" *ngFor="let section of sections" [class.active]="activeId === section.id" (click)="choose(section.id)"><span>{{ section.icon }}</span> {{ section.label }}</button>
+      <button type="button" [class.active]="activeId === 'history'" (click)="choose('history')"><span>↶</span> History & backup</button>
+    </nav>
+    <div class="studio-sidebar-bottom"><span class="studio-online-dot"></span><div><strong>Supabase protected</strong><small>Published content · private drafts</small></div></div>
+  </aside>
+
+  <div class="studio-sidebar-backdrop" *ngIf="sidebarOpen" (click)="sidebarOpen = false"></div>
+
+  <div class="studio-main">
+    <header class="studio-topbar">
+      <div class="studio-top-left"><button class="studio-hamburger" type="button" aria-label="Open menu" (click)="sidebarOpen = true">☰</button><span class="studio-breadcrumb">WORKSPACE <b>/</b> {{ activeId === 'overview' ? 'Overview' : activeId === 'history' ? 'History' : activeSection?.label }}</span></div>
+      <div class="studio-top-actions"><a routerLink="/" target="_blank" class="studio-view-site">View site ↗</a><span class="studio-avatar">CK</span></div>
+    </header>
+
+    <main class="studio-content" *ngIf="!loading; else loadingState">
+      <div class="studio-banner" *ngIf="!db.configured">Supabase is not configured. Update <code>src/environments.ts</code> and redeploy.</div>
+      <div class="studio-alert error" *ngIf="error" role="alert">{{ error }} <button type="button" (click)="error = ''" aria-label="Dismiss error">×</button></div>
+      <div class="studio-alert success" *ngIf="notice" role="status">{{ notice }} <button type="button" (click)="notice = ''" aria-label="Dismiss notice">×</button></div>
+      <div class="studio-alert warning" *ngIf="lastPublishWarning">{{ lastPublishWarning }}</div>
+
+      <div class="studio-content-head">
+        <div><span class="studio-eyebrow">KLEGAR PORTFOLIO / CONTENT STUDIO</span><h1>{{ activeId === 'overview' ? 'Workspace overview' : activeId === 'history' ? 'History & backups' : activeSection?.label }}</h1><p>{{ activeId === 'overview' ? 'Manage every section of your public portfolio from one beautiful workspace.' : activeId === 'history' ? 'Restore previous publications and export or import backups.' : activeSection?.description }}</p></div>
+        <div class="studio-title-actions"><span class="studio-dirty" *ngIf="dirty"><span></span> Unsaved changes</span><button type="button" class="studio-button subtle" [disabled]="busy || uploading" (click)="previewOpen = true">◉ Preview</button><button type="button" class="studio-button outlined" [disabled]="busy || uploading" (click)="saveDraft()">{{ busy ? 'Saving…' : 'Save draft' }}</button><button type="button" class="studio-button primary" [disabled]="busy || uploading" (click)="publish()">Publish changes ↗</button></div>
+      </div>
+
+      <ng-container *ngIf="activeId === 'overview'">
+        <div class="studio-welcome"><div><span>YOUR CREATIVE CONTROL CENTER</span><h2>Make something<br><em>remarkable.</em></h2><p>Shape your story, publish your work, and keep your online identity effortlessly up to date.</p><button type="button" (click)="choose('projects')">Manage projects ↗</button></div><div class="studio-welcome-art"><span>CK</span><i></i><b>PORTFOLIO<br>STUDIO.</b></div></div>
+        <div class="studio-stats"><div><span>◈</span><small>Projects</small><strong>{{ projectCount }}</strong><p>{{ visibleProjectCount }} visible</p></div><div><span>✳</span><small>Skills</small><strong>{{ skillCount }}</strong><p>In the explorer</p></div><div><span>▦</span><small>Services</small><strong>{{ serviceCount }}</strong><p>Offered to clients</p></div><div><span>◷</span><small>Published</small><strong>{{ publishedAt ? (publishedAt | date:'MMM d') : '—' }}</strong><p>{{ publishedAt ? (publishedAt | date:'shortTime') : 'Not yet published' }}</p></div></div>
+        <div class="studio-overview-grid">
+          <section class="studio-panel"><div class="studio-panel-head"><div><span class="studio-eyebrow">CONTENT</span><h3>Quick edit</h3></div><span>11 sections</span></div><div class="studio-quick-grid"><button *ngFor="let sec of sections.slice(0, 8)" type="button" (click)="choose(sec.id)"><span>{{ sec.icon }}</span><strong>{{ sec.label }}</strong><small>Open editor ↗</small></button></div></section>
+          <section class="studio-panel studio-status-panel"><div class="studio-panel-head"><div><span class="studio-eyebrow">PUBLISHING</span><h3>Your workflow</h3></div></div><div class="studio-steps"><div><span>01</span><div><strong>Edit your content</strong><p>Update projects, skills, profile, and more.</p></div></div><div><span>02</span><div><strong>Save a private draft</strong><p>Visitors cannot see unpublished updates.</p></div></div><div><span>03</span><div><strong>Preview &amp; publish</strong><p>Make approved changes live immediately.</p></div></div></div><p class="studio-mini-label">LOGGED IN AS</p><strong class="studio-account">{{ email }}</strong><button type="button" class="studio-signout" (click)="logout()">Sign out ↗</button></section>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="activeSection as section">
+        <div class="studio-editor-grid">
+          <section class="studio-editor-panel" *ngFor="let group of section.groups">
+            <div class="studio-editor-head"><div><h2>{{ group.title }}</h2><p>{{ group.kind === 'collection' ? 'Edit, reorder, add or remove items in this collection.' : 'These changes are private until you publish.' }}</p></div><button type="button" class="studio-button outlined small" *ngIf="group.kind === 'collection'" (click)="addItem(section.id, group)">+ Add item</button></div>
+            <div class="studio-fields" *ngIf="group.kind === 'fields'">
+              <ng-container *ngFor="let field of group.fields">
+                <label class="studio-field" [class.studio-check-field]="field.type === 'checkbox'">
+                  <span>{{ field.label }}</span>
+                  <ng-container [ngSwitch]="field.type">
+                    <textarea *ngSwitchCase="'textarea'" [ngModel]="value(section.id, field)" (ngModelChange)="setField(section.id, field, $event)" rows="4"></textarea>
+                    <textarea *ngSwitchCase="'lines'" [ngModel]="value(section.id, field)" (ngModelChange)="setField(section.id, field, $event)" rows="5" placeholder="One item per line"></textarea>
+                    <input *ngSwitchCase="'checkbox'" type="checkbox" [ngModel]="value(section.id, field)" (ngModelChange)="setField(section.id, field, $event)">
+                    <input *ngSwitchDefault [type]="field.type === 'number' ? 'number' : field.type === 'url' ? 'url' : 'text'" [ngModel]="value(section.id, field)" (ngModelChange)="setField(section.id, field, $event)">
+                  </ng-container>
+                </label>
+                <label *ngIf="field.type === 'image' || field.type === 'file'" class="studio-upload"><input type="file" [accept]="field.type === 'file' ? '.pdf,application/pdf' : 'image/png,image/jpeg,image/webp,image/gif'" (change)="uploadFile($event, section.id, field)" [disabled]="uploading"><span>↑ {{ uploading ? 'Uploading…' : field.type === 'file' ? 'Upload PDF' : 'Upload image' }}</span></label>
+              </ng-container>
+            </div>
+            <div class="studio-collection" *ngIf="group.kind === 'collection' && group.property">
+              <p class="studio-collection-empty" *ngIf="!items(section.id, group.property).length">Nothing added yet. Click “Add item” to create one.</p>
+              <div class="studio-collection-item" *ngFor="let item of items(section.id, group.property); index as i">
+                <div class="studio-item-head"><strong>{{ item.title || item.name || item.question || item.label || 'Item ' + (i + 1) }}</strong><div><button type="button" aria-label="Move up" [disabled]="i === 0" (click)="moveItem(section.id, group.property, i, -1)">↑</button><button type="button" aria-label="Move down" [disabled]="i === items(section.id, group.property).length - 1" (click)="moveItem(section.id, group.property, i, 1)">↓</button><button type="button" aria-label="Remove item" class="danger" (click)="removeItem(section.id, group.property, i)">×</button></div></div>
+                <div class="studio-fields">
+                  <ng-container *ngFor="let field of group.fields">
+                    <label class="studio-field" [class.studio-check-field]="field.type === 'checkbox'"><span>{{ field.label }}</span>
+                      <ng-container [ngSwitch]="field.type">
+                        <textarea *ngSwitchCase="'textarea'" [ngModel]="value(section.id, field, i, group.property)" (ngModelChange)="setField(section.id, field, $event, i, group.property)" rows="4"></textarea>
+                        <textarea *ngSwitchCase="'lines'" [ngModel]="value(section.id, field, i, group.property)" (ngModelChange)="setField(section.id, field, $event, i, group.property)" rows="4" placeholder="One item per line"></textarea>
+                        <input *ngSwitchCase="'checkbox'" type="checkbox" [ngModel]="value(section.id, field, i, group.property)" (ngModelChange)="setField(section.id, field, $event, i, group.property)">
+                        <input *ngSwitchDefault [type]="field.type === 'number' ? 'number' : field.type === 'url' ? 'url' : 'text'" [ngModel]="value(section.id, field, i, group.property)" (ngModelChange)="setField(section.id, field, $event, i, group.property)">
+                      </ng-container>
+                    </label>
+                    <label *ngIf="field.type === 'image' || field.type === 'file'" class="studio-upload"><input type="file" [accept]="field.type === 'file' ? '.pdf,application/pdf' : 'image/png,image/jpeg,image/webp,image/gif'" (change)="uploadFile($event, section.id, field, i, group.property)" [disabled]="uploading"><span>↑ {{ uploading ? 'Uploading…' : 'Upload image' }}</span></label>
+                  </ng-container>
+                </div>
+              </div>
+              <button type="button" class="studio-add-item" (click)="addItem(section.id, group)">+ Add {{ group.title.toLowerCase().slice(0, -1) || 'item' }}</button>
+            </div>
+          </section>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="activeId === 'history'"><div class="studio-overview-grid">
+        <section class="studio-panel"><div class="studio-panel-head"><div><span class="studio-eyebrow">PUBLICATION HISTORY</span><h3>Previous versions</h3></div></div><p class="studio-panel-description">Restoring an entry loads it into your draft. Your public website stays unchanged until you publish it.</p><div class="studio-history-list"><div *ngFor="let version of history"><div><strong>{{ version.published_at | date:'medium' }}</strong><small>{{ version.id.slice(0, 8) }}</small></div><button type="button" class="studio-button outlined small" (click)="restoreRevision(version)">Restore to draft</button></div><p *ngIf="history.length === 0">No published revisions yet.</p></div></section>
+        <section class="studio-panel"><div class="studio-panel-head"><div><span class="studio-eyebrow">BACKUP</span><h3>Export / import</h3></div></div><p class="studio-panel-description">Save a portable JSON copy of your current draft or restore a previous backup.</p><button type="button" class="studio-button primary" (click)="exportJson()">↓ Export draft JSON</button><label class="studio-upload backup"><input type="file" accept=".json,application/json" (change)="importJson($event)"><span>↑ Import JSON backup</span></label><p class="studio-panel-description">Importing does not auto-publish. Review and save your draft first.</p><hr><button type="button" class="studio-button outlined" (click)="logout()">Sign out ↗</button></section>
+      </div></ng-container>
+
+      <footer class="studio-content-footer"><span>© {{ today.getFullYear() }} Klegar Portfolio Studio</span><span>Content secured with Supabase RLS.</span></footer>
+    </main>
+    <ng-template #loadingState><div class="studio-loading">✦ Loading your workspace…</div></ng-template>
+  </div>
+</div>
+
+<div class="studio-preview-layer" *ngIf="previewOpen" role="dialog" aria-modal="true" aria-label="Draft website preview">
+  <div class="studio-preview-bar"><strong>◉ Unpublished draft preview</strong><span>Changes here are not public yet.</span><button type="button" (click)="previewOpen = false">Close preview ×</button></div>
+  <div class="studio-preview-scroll"><app-portfolio [previewContent]="draft"></app-portfolio></div>
+</div>

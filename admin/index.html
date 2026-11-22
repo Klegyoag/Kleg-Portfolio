@@ -4,16 +4,16 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <title>Portfolio Studio — Admin</title>
-  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link href="admin.css" rel="stylesheet">
+  <link href="/admin/admin.css?v=2" rel="stylesheet">
 </head>
 <body>
   <div class="admin-shell" id="dashboard" hidden>
     <aside class="sidebar" id="sidebar">
-      <a href="./" class="sidebar-brand"><span class="brand-emblem">K<span>·</span></span><span><strong>KLEGAR STUDIO</strong><small>Portfolio command center</small></span></a>
+      <a href="/admin/" class="sidebar-brand"><span class="brand-emblem">K<span>·</span></span><span><strong>KLEGAR STUDIO</strong><small>Portfolio command center</small></span></a>
       <div class="workspace-badge"><span class="workspace-icon">✦</span><span><strong>My Portfolio</strong><small>Content workspace</small></span><span class="workspace-chevron">⌄</span></div>
       <div class="nav-label">WORKSPACE</div>
       <nav class="side-nav" id="sideNav" aria-label="CMS sections"></nav>
@@ -37,6 +37,6 @@
   <section class="login-screen" id="loginScreen"><div class="login-background"></div><div class="login-brand"><span class="brand-emblem">K<span>·</span></span><strong>KLEGAR STUDIO</strong></div><div class="login-card"><div class="login-icon">✦</div><span class="eyebrow">PRIVATE WORKSPACE</span><h1>Welcome back<span class="accent-period">.</span></h1><p>Sign in to manage and publish your portfolio.</p><div id="setupMessage" class="setup-message" hidden></div><form id="loginForm"><label>Email address<input id="loginEmail" type="email" required autocomplete="username" placeholder="you@example.com"></label><label>Password<input id="loginPassword" type="password" required autocomplete="current-password" placeholder="Enter password"></label><button class="login-submit" id="loginButton" type="submit">Enter dashboard <span>↗</span></button></form><p id="loginError" role="alert" class="login-error"></p><div class="login-footer">Protected with Supabase Auth + database access rules</div></div><a class="return-site" href="/">← Return to portfolio</a></section>
   <div class="preview-overlay" id="previewOverlay" hidden><div class="preview-window"><div class="preview-bar"><div><strong>◫ Live draft preview</strong><span>Only visible to you — not yet published</span></div><div class="preview-controls"><button id="previewDesktop" class="active" type="button">▱ Desktop</button><button id="previewMobile" type="button">▯ Mobile</button><button id="previewClose" aria-label="Close preview" type="button">✕</button></div></div><div class="iframe-wrap"><iframe title="Portfolio draft preview" id="previewFrame" src="/" loading="lazy"></iframe></div></div></div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="../cms-config.js" defer></script><script src="../cms-defaults.js" defer></script><script src="admin.js" defer></script>
+  <script src="/cms-config.js" defer></script><script src="/cms-defaults.js" defer></script><script src="/admin/admin.js?v=2" defer></script>
 </body>
 </html>

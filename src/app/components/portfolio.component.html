@@ -1,222 +1,150 @@
-<div class="site-shell" [class.is-preview]="!!previewContent">
-  <a class="skip-link" href="#mainContent">Skip to content</a>
-  <div class="scroll-progress" aria-hidden="true"><span style="width: 0"></span></div>
+<div class="nv-root at-root" [class.at-preview]="!!previewContent">
+  <a class="at-skip" href="#mainContent">Skip to content</a>
 
-  <header class="site-header" id="siteHeader">
-    <nav class="navbar shell" aria-label="Primary navigation">
-      <a class="brand" href="/home" (click)="navigateSection($event, 'home')">
-        <span class="brand-mark">CK</span>
-        <span class="brand-copy"><strong>{{ data.site.shortName }}</strong><small>Developer OS</small></span>
+  <header class="at-header">
+    <div class="at-wrap at-header-inner">
+      <a class="at-brand" href="/home" (click)="navigateSection($event, 'home')" aria-label="Chris Klegar Yoag — home">
+        <span class="at-monogram">CK<span>.</span></span>
+        <span class="at-brand-line">CHRIS KLEGAR YOAG<small>SOFTWARE DEVELOPER</small></span>
       </a>
-      <div class="nav-links" id="navLinks" [class.open]="mobileMenuOpen">
-        <a class="nav-link" [class.active]="activeSection === 'home'" [attr.aria-current]="activeSection === 'home' ? 'page' : null" href="/home" (click)="navigateSection($event, 'home')">Home</a>
-        <a class="nav-link" [class.active]="activeSection === 'about'" [attr.aria-current]="activeSection === 'about' ? 'page' : null" href="/about" (click)="navigateSection($event, 'about')">About</a>
-        <a class="nav-link" [class.active]="activeSection === 'services'" [attr.aria-current]="activeSection === 'services' ? 'page' : null" href="/services" (click)="navigateSection($event, 'services')">Services</a>
-        <a class="nav-link" [class.active]="activeSection === 'skills'" [attr.aria-current]="activeSection === 'skills' ? 'page' : null" href="/skills" (click)="navigateSection($event, 'skills')">Skills</a>
-        <a class="nav-link" [class.active]="activeSection === 'projects'" [attr.aria-current]="activeSection === 'projects' ? 'page' : null" href="/projects" (click)="navigateSection($event, 'projects')">Projects</a>
-        <a class="nav-link" [class.active]="activeSection === 'journey'" [attr.aria-current]="activeSection === 'journey' ? 'page' : null" href="/journey" (click)="navigateSection($event, 'journey')">Journey</a>
-        <a class="nav-link" [class.active]="activeSection === 'contact'" [attr.aria-current]="activeSection === 'contact' ? 'page' : null" href="/contact" (click)="navigateSection($event, 'contact')">Contact</a>
+      <nav class="at-nav" [class.at-nav-visible]="mobileMenuOpen" aria-label="Main navigation">
+        <a href="/home" [class.at-current]="activeSection === 'home'" (click)="navigateSection($event, 'home')">Home</a>
+        <a href="/about" [class.at-current]="activeSection === 'about'" (click)="navigateSection($event, 'about')">About</a>
+        <a href="/projects" [class.at-current]="activeSection === 'projects'" (click)="navigateSection($event, 'projects')">Projects</a>
+        <a href="/services" [class.at-current]="activeSection === 'services'" (click)="navigateSection($event, 'services')">Services</a>
+        <a href="/skills" [class.at-current]="activeSection === 'skills'" (click)="navigateSection($event, 'skills')">Skills</a>
+        <a href="/journey" [class.at-current]="activeSection === 'journey'" (click)="navigateSection($event, 'journey')">Journey</a>
+      </nav>
+      <div class="at-nav-end">
+        <a class="at-hello" href="/contact" (click)="navigateSection($event, 'contact')">Let's connect <span aria-hidden="true">↗</span></a>
+        <button type="button" class="at-menu-toggle" [attr.aria-expanded]="mobileMenuOpen" aria-label="Toggle navigation" (click)="mobileMenuOpen = !mobileMenuOpen">
+          <span></span><span></span>
+        </button>
       </div>
-      <div class="nav-actions">
-        <button type="button" class="shortcut-button" aria-label="Open quick navigation" (click)="commandOpen = true"><span>Quick actions</span><kbd>⌘ K</kbd></button>
-        <div class="theme-switcher">
-          <button type="button" class="icon-button" aria-label="Choose theme" [attr.aria-expanded]="themeMenuOpen" (click)="themeMenuOpen = !themeMenuOpen"><span class="theme-orb"></span></button>
-          <div class="theme-menu glass-panel" *ngIf="themeMenuOpen">
-            <p>Interface theme</p>
-            <button type="button" (click)="setTheme('neon')"><i class="swatch swatch-neon"></i><span><strong>Crimson Night</strong><small>Black + crimson</small></span><b *ngIf="theme === 'neon'">✓</b></button>
-            <button type="button" (click)="setTheme('light')"><i class="swatch swatch-light"></i><span><strong>Royal Gold</strong><small>Obsidian + gold</small></span><b *ngIf="theme === 'light'">✓</b></button>
-            <button type="button" (click)="setTheme('gold')"><i class="swatch swatch-gold"></i><span><strong>Copper Bronze</strong><small>Jet black + copper</small></span><b *ngIf="theme === 'gold'">✓</b></button>
-          </div>
-        </div>
-        <button type="button" class="menu-toggle" aria-label="Toggle navigation" [attr.aria-expanded]="mobileMenuOpen" (click)="mobileMenuOpen = !mobileMenuOpen"><span></span><span></span><span></span></button>
-        <a class="button button-small button-outline nav-talk" href="/contact" (click)="navigateSection($event, 'contact')">Let's Talk ↗</a>
-      </div>
-    </nav>
+    </div>
   </header>
 
   <main id="mainContent">
-    <section class="hero section" id="home">
-      <div class="hero-ambient ambient-a" aria-hidden="true"></div>
-      <div class="hero-ambient ambient-b" aria-hidden="true"></div>
-      <div class="hero-grid-bg" aria-hidden="true"></div>
-      <div class="shell hero-layout">
-        <div class="hero-copy reveal visible">
-          <div class="status-pill"><span></span>{{ data.hero.badge }}</div>
-          <p class="eyebrow">{{ data.hero.eyebrow }}</p>
-          <h1>{{ data.hero.line1 }} <em>{{ data.hero.accent1 }}</em><br>{{ data.hero.line2 }} <em>{{ data.hero.accent2 }}</em><br>{{ data.hero.line3 }} <em>{{ data.hero.accent3 }}</em></h1>
-          <p class="hero-description">{{ data.hero.description }}</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="/about" (click)="navigateSection($event, 'about')">{{ data.hero.buttonText }} <span>↗</span></a>
-            <a class="button button-outline" *ngIf="resourceUrl(data.site.cvUrl) as cv" [href]="cv" target="_blank" rel="noopener noreferrer">Download CV ↗</a>
-          </div>
-          <div class="hero-meta">
-            <div><small>Based in</small><strong>{{ data.site.location }}</strong></div>
-            <div><small>Role</small><strong>{{ data.site.companyRole }}</strong></div>
-            <div><small>Focus</small><strong>{{ data.hero.focus }}</strong></div>
-          </div>
-          <div class="hero-shortcuts"><span><kbd>⌘ K</kbd> Command menu</span><span><kbd>T</kbd> Switch theme</span></div>
-        </div>
-        <div class="hero-stage hero-stage-clean reveal visible" id="heroStage">
-          <div class="portrait-halo" aria-hidden="true"><i></i><i></i><i></i></div>
-          <div class="portrait-card portrait-card-clean">
-            <div class="portrait-float"><img [src]="resourceUrl(data.site.portraitUrl) || '/assets/chris-klegar-profile.webp'" [alt]="'Portrait of ' + data.site.ownerName" fetchpriority="high" width="1102" height="1409"></div>
-            <div class="portrait-label glass-panel"><span>Developer profile</span><strong>{{ data.site.role }}</strong></div>
-          </div>
-          <div class="hero-dock glass-panel"><span>C#</span><span>.NET</span><span>SQL</span><span>API</span><span>JS</span><span>Git</span></div>
-        </div>
-      </div>
-      <a class="scroll-cue" href="/about" (click)="navigateSection($event, 'about')"><span>Scroll to explore</span><i></i></a>
-    </section>
+    <!-- Full-viewport editorial hero. About begins only below the fold. -->
+    <section id="home" class="hx-hero" aria-labelledby="hx-hero-heading">
+      <div class="hx-ambient" aria-hidden="true"></div>
+      <div class="hx-hero-scene">
+        <div class="hx-ghost" aria-hidden="true">Developer</div>
+        <div class="hx-shape" aria-hidden="true"></div>
 
-    <section class="ticker" aria-label="Technical specialties"><div class="ticker-track"><ng-container *ngFor="let label of data.hero.ticker"><span>{{ label }}</span><i>✦</i></ng-container><ng-container *ngFor="let label of data.hero.ticker"><span>{{ label }}</span><i>✦</i></ng-container></div></section>
-
-    <section class="section workspace-section" id="about">
-      <div class="shell workspace-layout">
-        <div class="section-heading reveal visible">
-          <p class="section-label"><span></span>Developer workspace</p>
-          <h2>{{ data.about.heading1 }}<br><em>{{ data.about.heading2 }}</em></h2>
-          <p>{{ data.about.description }}</p>
-          <div class="profile-mini glass-panel"><div class="profile-avatar">CK</div><div><strong>{{ data.site.ownerName }}</strong><span>{{ data.site.role }} · {{ data.site.companyRole }}</span></div><i></i></div>
-        </div>
-        <div class="workspace-window glass-panel reveal visible">
-          <div class="workspace-tabs" role="tablist" aria-label="About tabs">
-            <button type="button" [class.active]="activeTab === 'story'" (click)="activeTab = 'story'">My story</button>
-            <button type="button" [class.active]="activeTab === 'process'" (click)="activeTab = 'process'">Process</button>
-            <button type="button" [class.active]="activeTab === 'tools'" (click)="activeTab = 'tools'">Toolkit</button>
-            <button type="button" [class.active]="activeTab === 'facts'" (click)="activeTab = 'facts'">Quick facts</button>
-          </div>
-          <div class="workspace-content active" *ngIf="activeTab === 'story'">
-            <p class="workspace-kicker">01 / My story</p><h3>{{ data.about.storyTitle }}</h3><p>{{ data.about.storyBody }}</p>
-            <div class="story-timeline"><span *ngFor="let item of data.about.milestones"><i></i><b>{{ item.title }}</b><small>{{ item.description }}</small></span></div>
-          </div>
-          <div class="workspace-content active" *ngIf="activeTab === 'process'">
-            <p class="workspace-kicker">02 / Process</p><h3>{{ data.about.processTitle }}</h3>
-            <div class="process-grid"><article *ngFor="let step of data.about.steps; index as i"><span>{{ i + 1 < 10 ? '0' + (i + 1) : i + 1 }}</span><strong>{{ step.title }}</strong><p>{{ step.description }}</p></article></div>
-          </div>
-          <div class="workspace-content active" *ngIf="activeTab === 'tools'">
-            <p class="workspace-kicker">03 / Toolkit</p><h3>{{ data.about.toolsTitle }}</h3><div class="tool-cloud"><span *ngFor="let tool of data.about.tools">{{ tool }}</span></div>
-          </div>
-          <div class="workspace-content active" *ngIf="activeTab === 'facts'">
-            <p class="workspace-kicker">04 / Quick facts</p><h3>{{ data.about.factsTitle }}</h3><div class="fact-grid"><article *ngFor="let fact of data.about.facts"><small>{{ fact.label }}</small><strong>{{ fact.value }}</strong></article></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section services-section" id="services">
-      <div class="shell">
-        <div class="section-top"><div><p class="section-label"><span></span>Services</p><h2>{{ data.services.heading1 }}<br><em>{{ data.services.heading2 }}</em></h2></div><p class="section-intro-text">{{ data.services.description }}</p></div>
-        <div class="services-grid">
-          <article class="service-card" *ngFor="let item of data.services.items; index as i">
-            <div class="service-head"><span>{{ (i + 1) < 10 ? '0' + (i + 1) : i + 1 }}</span><i>{{ item.icon }}</i></div>
-            <h3>{{ item.title }}</h3><p>{{ item.description }}</p>
-            <div class="service-demo demo-code"><span>{{ item.icon }}</span>&nbsp; <strong>{{ item.title }}</strong></div>
-            <a href="/contact" (click)="navigateSection($event, 'contact')">{{ item.cta }} ↗</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section cms-projects-section" id="projects">
-      <div class="shell">
-        <div class="section-top"><div><p class="section-label"><span></span>Selected projects</p><h2>{{ data.projects.heading1 }}<br><em>{{ data.projects.heading2 }}</em></h2></div><p class="section-intro-text">{{ data.projects.description }}</p></div>
-        <div class="cms-projects-grid" *ngIf="visibleProjects.length; else emptyProjects">
-          <article class="cms-project-card" *ngFor="let project of visibleProjects">
-            <a [routerLink]="['/projects', slug(project.title)]" class="cms-project-media">
-              <img *ngIf="resourceUrl(project.imageUrl) as image; else imagePlaceholder" [src]="image" [alt]="'Screenshot of ' + project.title" loading="lazy">
-              <ng-template #imagePlaceholder><span class="cms-project-symbol">◈</span></ng-template>
-              <span class="cms-project-featured" *ngIf="project.featured">Featured</span>
-            </a>
-            <div class="cms-project-body"><p class="cms-project-category">{{ project.category }}</p><h3>{{ project.title }}</h3><p class="cms-project-description">{{ project.description }}</p>
-              <div class="cms-project-tags"><span *ngFor="let tech of project.stack">{{ tech }}</span></div>
-              <div class="cms-project-links"><a [routerLink]="['/projects', slug(project.title)]">Case study ↗</a><a *ngIf="linkUrl(project.githubUrl) as github" [href]="github" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a *ngIf="linkUrl(project.liveUrl) as demo" [href]="demo" target="_blank" rel="noopener noreferrer">Live site ↗</a></div>
+        <div class="at-wrap hx-hero-content">
+          <div class="hx-intro">
+            <p class="hx-eyebrow hx-appear"><span></span> SOFTWARE DEVELOPER</p>
+            <h1 id="hx-hero-heading" class="hx-name hx-appear">
+              <span>{{ heroFirstName }}</span>
+              <span class="hx-name-accent">{{ heroSecondName }}</span>
+            </h1>
+            <p class="hx-statement hx-appear">{{ data.hero.introShort || 'I build digital products that solve real problems and create lasting value.' }}</p>
+            <div class="hx-actions hx-appear">
+              <a class="hx-button hx-button-primary" href="/projects" (click)="navigateSection($event,'projects')">View my projects <span aria-hidden="true">↗</span></a>
+              <a class="hx-button hx-button-secondary" href="/about" (click)="navigateSection($event,'about')">About me <span aria-hidden="true">↗</span></a>
             </div>
+            <div class="hx-signals hx-appear" aria-label="Development principles">
+              <span><b aria-hidden="true">&lt;/&gt;</b><strong>Clean code</strong><small>Built to maintain</small></span>
+              <span><b aria-hidden="true">▧</b><strong>Scalable apps</strong><small>Made to grow</small></span>
+              <span><b aria-hidden="true">↗</b><strong>Real impact</strong><small>Practical outcomes</small></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hx-portrait-stage hx-appear">
+          <img class="hx-portrait" [src]="heroPortraitUrl" (error)="onHeroPortraitError($event)" data-portrait-edition="transparent-v4" [alt]="'Portrait of ' + data.site.ownerName" width="1086" height="1448" fetchpriority="high" decoding="async" />
+        </div>
+      </div>
+
+      <a class="hx-scroll" href="/about" (click)="navigateSection($event,'about')" aria-label="Scroll to About Me">
+        <span>SCROLL TO EXPLORE</span>
+        <span class="hx-scroll-track" aria-hidden="true"><i></i></span>
+      </a>
+      <div class="hx-bottom-wash" aria-hidden="true"></div>
+    </section>
+
+    <section id="about" class="at-section at-about">
+      <div class="at-wrap">
+        <div class="at-section-head nv-reveal"><span class="at-section-number">01 / ABOUT ME</span><span class="at-section-note">THE THINKING BEHIND THE WORK</span></div>
+        <div class="at-about-grid">
+          <div class="at-about-heading nv-reveal"><h2>{{ data.about.displayHeading1 || "More than" }}<br><em>{{ data.about.displayHeading2 || "just code." }}</em></h2><p class="at-side-label">Curiosity meets structure.</p></div>
+          <div class="at-about-body nv-reveal">
+            <p class="at-lead">{{ data.about.description }}</p>
+            <p>{{ data.about.storyBody }}</p>
+            <a class="at-inline-link" href="/contact" (click)="navigateSection($event, 'contact')">Let's work together <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="at-about-values nv-reveal">
+          <article *ngFor="let item of data.about.milestones; index as i"><span>0{{ i + 1 }}</span><div><h3>{{ item.title }}</h3><p>{{ item.description }}</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="at-section at-projects">
+      <div class="at-wrap">
+        <div class="at-section-head nv-reveal"><span class="at-section-number">02 / FEATURED WORK</span><span class="at-section-note">THOUGHTFUL DESIGN, SOLID ENGINEERING</span></div>
+        <div class="at-section-title-row nv-reveal"><h2>{{ data.projects.displayHeading1 || "Selected" }} <em>{{ data.projects.displayHeading2 || "projects." }}</em></h2><p>{{ data.projects.description }}</p></div>
+        <div class="at-project-list" *ngIf="visibleProjects.length; else atNoProjects">
+          <article class="at-project nv-reveal" *ngFor="let project of visibleProjects; index as i">
+            <a class="at-project-visual" [routerLink]="['/projects', slug(project.title)]" [attr.aria-label]="'Read project details: ' + project.title">
+              <img *ngIf="resourceUrl(project.imageUrl) as image; else atProjectArt" [src]="image" [alt]="'Screenshot of ' + project.title" loading="lazy" />
+              <ng-template #atProjectArt><div class="at-project-placeholder"><span>PORTFOLIO / 0{{ i + 1 }}</span><strong>{{ project.title }}</strong><i aria-hidden="true">↗</i></div></ng-template>
+            </a>
+            <div class="at-project-copy"><p class="at-overline">{{ project.category || 'DIGITAL PRODUCT' }}</p><h3>{{ project.title }}</h3><p>{{ project.description }}</p><div class="at-chips"><span *ngFor="let tech of project.stack">{{ tech }}</span></div><div class="at-project-actions"><a [routerLink]="['/projects', slug(project.title)]">Project details <span>↗</span></a><a *ngIf="linkUrl(project.githubUrl) as github" [href]="github" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a *ngIf="linkUrl(project.liveUrl) as live" [href]="live" target="_blank" rel="noopener noreferrer">Visit ↗</a></div></div>
           </article>
         </div>
-        <ng-template #emptyProjects><div class="portfolio-empty"><span>COMING SOON</span><h3>New work is on the way.</h3><p>Project case studies will appear here once published through Portfolio Studio.</p></div></ng-template>
+        <ng-template #atNoProjects><div class="at-project-empty nv-reveal"><span class="at-overline">A COLLECTION IN PROGRESS</span><h3>More work is coming soon.</h3><p>New projects will appear here as they're published through Portfolio Studio.</p><a [href]="linkUrl(data.site.githubUrl) || 'https://github.com/Klegyoag'" target="_blank" rel="noopener noreferrer" class="at-button at-button-dark">Explore GitHub ↗</a></div></ng-template>
       </div>
     </section>
 
-    <section class="section design-code-section" id="design">
-      <div class="shell design-code-layout">
-        <div class="section-heading"><p class="section-label"><span></span>Signature capability</p><h2>From system structure<br><em>to thoughtful interfaces.</em></h2><p>Drag the slider to compare an early wireframe with a polished dashboard interface.</p><div class="stage-pills"><span>Requirements</span><span>Architecture</span><span>Responsive build</span></div></div>
-        <div class="compare-wrap">
-          <div class="compare-frame compare-before"><div class="wire-sidebar"></div><div class="wire-main"><i></i><section><b></b><b></b><b></b></section><article></article><article></article></div><span>Wireframe</span></div>
-          <div class="compare-frame compare-after" [style.clip-path]="'inset(0 0 0 ' + compare + '%)'"><div class="final-sidebar"><strong>CK</strong><i></i><i></i><i></i></div><div class="final-main"><header><div><small>Welcome back</small><strong>Creative dashboard</strong></div><b></b></header><section><article><small>Projects built</small><strong>20+</strong></article><article><small>Active tasks</small><strong>07</strong></article><article><small>Progress</small><strong>82%</strong></article></section><div class="final-chart"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><span>Final UI</span></div>
-          <input type="range" min="8" max="92" [(ngModel)]="compare" aria-label="Compare wireframe and final interface">
-          <div class="compare-handle" [style.left.%]="compare"><i>↔</i></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section skills-section" id="skills">
-      <div class="shell skills-layout">
-        <div class="skills-universe">
-          <div class="universe-rings" aria-hidden="true"><i></i><i></i><i></i></div>
-          <button type="button" class="skill-node" *ngFor="let skill of data.skills.items; index as i" [class.active]="selectedSkill === i" [class.node-1]="i === 0" [class.node-2]="i === 1" [class.node-3]="i === 2" [class.node-4]="i === 3" [class.node-5]="i === 4" [class.node-6]="i === 5" (click)="selectedSkill = i"><span>{{ skill.icon }}</span><small>{{ skill.short }}</small></button>
-          <div class="universe-core"><span>CK</span><strong>Developer<br>Toolkit</strong><small>Choose a skill</small></div>
-        </div>
-        <div class="skill-details"><p class="section-label"><span></span>Interactive skill universe</p><h2>{{ data.skills.heading1 }}<br><em>{{ data.skills.heading2 }}</em></h2>
-          <div class="skill-detail-card glass-panel" *ngIf="activeSkill as skill"><div class="skill-detail-head"><span>{{ skill.icon }}</span><div><small>{{ skill.category }}</small><h3>{{ skill.name }}</h3></div></div><p>{{ skill.description }}</p><div class="skill-meter"><i><span [style.width.%]="skill.meter || 0"></span></i><strong>{{ skill.level }}</strong></div></div>
-          <div class="skill-stack"><span *ngFor="let tech of data.skills.stack">{{ tech }}</span></div>
+    <section id="services" class="at-section at-services">
+      <div class="at-wrap">
+        <div class="at-section-head nv-reveal"><span class="at-section-number">03 / SERVICES</span><span class="at-section-note">HOW I CAN HELP</span></div>
+        <div class="at-section-title-row nv-reveal"><h2>{{ data.services.displayHeading1 || "What I" }} <em>{{ data.services.displayHeading2 || "do." }}</em></h2><p>{{ data.services.description }}</p></div>
+        <div class="at-service-grid">
+          <article class="at-service nv-reveal" *ngFor="let item of data.services.items; index as i"><div class="at-service-top"><span>0{{ i + 1 }}</span><i aria-hidden="true">↗</i></div><h3>{{ item.title }}</h3><p>{{ item.description }}</p><a href="/contact" (click)="navigateSection($event,'contact')">{{ item.cta || 'Discuss your project' }} <span>↗</span></a></article>
         </div>
       </div>
     </section>
 
-    <section class="section journey-section" id="journey">
-      <div class="shell"><div class="section-top"><div><p class="section-label"><span></span>Experience journey</p><h2>{{ data.journey.heading1 }}<br><em>{{ data.journey.heading2 }}</em></h2></div><p class="section-intro-text">{{ data.journey.description }}</p></div>
-        <div class="journey-line"><span class="journey-progress"></span><article class="journey-item visible" *ngFor="let item of data.journey.items"><div class="journey-year">{{ item.year }}</div><span class="journey-dot"></span><div class="journey-card glass-panel"><small>{{ item.category }}</small><h3>{{ item.title }}</h3><p>{{ item.description }}</p><div><span *ngFor="let tag of item.tags">{{ tag }}</span></div></div></article></div>
+    <section id="skills" class="at-section at-skills">
+      <div class="at-wrap at-skills-grid">
+        <div class="nv-reveal"><div class="at-section-head"><span class="at-section-number">04 / SKILLS</span></div><h2>{{ data.skills.displayHeading1 || "A thoughtful" }}<br><em>{{ data.skills.displayHeading2 || "technical toolkit." }}</em></h2><p>A practical set of tools for building secure, maintainable applications—from database to interface.</p><div class="at-skill-stack"><span *ngFor="let tech of data.skills.stack">{{ tech }}</span></div></div>
+        <div class="at-skill-panels nv-reveal"><button class="at-skill-panel" type="button" *ngFor="let skill of data.skills.items; index as i" [attr.aria-expanded]="selectedSkill === i" [class.at-expanded]="selectedSkill === i" (click)="selectedSkill = i"><span class="at-skill-top"><span class="at-skill-count">0{{ i + 1 }}</span><strong>{{ skill.name }}</strong><span class="at-skill-symbol">{{ selectedSkill === i ? '−' : '+' }}</span></span><span class="at-skill-content" *ngIf="selectedSkill === i">{{ skill.description }} <small>{{ skill.level }}</small></span></button></div>
       </div>
     </section>
 
-    <section class="section lab-section" id="lab">
-      <div class="shell lab-layout"><div class="lab-console glass-panel"><div class="console-top"><div><i></i><i></i><i></i></div><span>live-interface-lab.ts</span><small>Angular preview</small></div>
-          <div class="lab-preview" [style.--lab-hue]="labHue" [style.--lab-radius]="labRadius + 'px'" [style.--lab-blur]="labBlur + 'px'"><div class="lab-card"><span class="lab-badge">Live component</span><h3>Test the interface.</h3><p>Adjust the controls and watch the component update instantly.</p><a href="/projects" (click)="navigateSection($event, 'projects')">Explore projects ↗</a></div><div class="lab-decoration"><i></i><i></i><i></i></div></div>
-        </div>
-        <div class="lab-controls"><p class="section-label"><span></span>Live design lab</p><h2>{{ data.extras.labHeading1 }}<br><em>{{ data.extras.labHeading2 }}</em></h2><p>{{ data.extras.labDescription }}</p>
-          <div class="control-group"><label for="accentRange"><span>Accent hue</span><output>{{ labHue }}°</output></label><input id="accentRange" type="range" min="0" max="360" [(ngModel)]="labHue"></div>
-          <div class="control-group"><label for="radiusRange"><span>Corner radius</span><output>{{ labRadius }}px</output></label><input id="radiusRange" type="range" min="4" max="38" [(ngModel)]="labRadius"></div>
-          <div class="control-group"><label for="blurRange"><span>Glass blur</span><output>{{ labBlur }}px</output></label><input id="blurRange" type="range" min="0" max="35" [(ngModel)]="labBlur"></div>
-          <div class="lab-presets"><button type="button" (click)="labHue=355;labRadius=6;labBlur=0">Minimal</button><button type="button" (click)="resetLab()">Crimson</button><button type="button" (click)="labHue=42;labRadius=24;labBlur=20">Gold</button></div>
-        </div>
+    <section id="journey" class="at-section at-journey">
+      <div class="at-wrap">
+        <div class="at-section-head nv-reveal"><span class="at-section-number">05 / THE JOURNEY</span><span class="at-section-note">MILESTONES THAT SHAPED MY WORK</span></div>
+        <div class="at-section-title-row nv-reveal"><h2>{{ data.journey.displayHeading1 || "Always" }} <em>{{ data.journey.displayHeading2 || "building." }}</em></h2><p>{{ data.journey.description }}</p></div>
+        <div class="at-timeline"><article class="at-time-item nv-reveal" *ngFor="let item of data.journey.items"><span class="at-time-year">{{ item.year }}</span><div><p class="at-overline">{{ item.category }}</p><h3>{{ item.title }}</h3><p>{{ item.description }}</p></div><span aria-hidden="true" class="at-time-dot"></span></article></div>
       </div>
     </section>
 
-    <section class="section feedback-section" id="principles"><div class="shell feedback-layout">
-      <div class="section-heading"><p class="section-label"><span></span>Working principles</p><h2>{{ data.extras.principlesHeading1 }}<br><em>{{ data.extras.principlesHeading2 }}</em></h2><p>{{ data.extras.principlesDescription }}</p><div class="feedback-controls"><button type="button" aria-label="Previous principle" (click)="stepPrinciple(-1)">←</button><button type="button" aria-label="Next principle" (click)="stepPrinciple(1)">→</button></div></div>
-      <div class="feedback-slider" *ngIf="activePrinciple as principle"><article class="feedback-card glass-panel active"><span>{{ principleIndex + 1 }}</span><blockquote>{{ principle.quote }}</blockquote><p>{{ principle.description }}</p><small>{{ principle.label }}</small></article></div>
-    </div></section>
-
-    <section class="section contact-section" id="contact">
-      <div class="contact-ambient" aria-hidden="true"></div>
-      <div class="shell contact-layout">
-        <div class="contact-copy"><p class="section-label"><span></span>Start a project</p><h2>{{ data.contact.heading1 }}<br><em>{{ data.contact.heading2 }}</em></h2><p>{{ data.contact.description }}</p>
-          <div class="contact-routes"><a [href]="whatsapp" target="_blank" rel="noopener noreferrer"><span>◉</span><div><small>WhatsApp / Phone</small><strong>{{ data.site.whatsappDisplay }}</strong></div><i>↗</i></a><div><span>⌖</span><div><small>Location</small><strong>{{ data.site.location }}</strong></div></div><div><span>×</span><div><small>Company role</small><strong>{{ data.site.companyRole }}</strong></div></div></div>
-          <div class="social-row"><span>Follow the work</span><a *ngFor="let social of socialLinks" [href]="social.url" [attr.aria-label]="social.label" target="_blank" rel="noopener noreferrer">{{ social.label }}</a></div>
+    <section id="contact" class="at-section at-contact">
+      <div class="at-wrap">
+        <div class="at-section-head nv-reveal"><span class="at-section-number">06 / CONTACT</span><span class="at-section-note">EVERY GREAT PROJECT STARTS SOMEWHERE</span></div>
+        <div class="at-contact-grid">
+          <div class="at-contact-copy nv-reveal"><h2>{{ data.contact.displayHeading1 || "Have something" }}<br><em>{{ data.contact.displayHeading2 || "in mind?" }}</em></h2><p>{{ data.contact.description }}</p><a class="at-contact-number" [href]="whatsapp" target="_blank" rel="noopener noreferrer">{{ data.site.whatsappDisplay }} ↗</a><div class="at-contact-social"><a *ngFor="let social of socialLinks" [href]="social.url" target="_blank" rel="noopener noreferrer">{{ social.label }} ↗</a></div></div>
+          <form class="at-contact-form nv-reveal" (ngSubmit)="submitEnquiry()">
+            <div class="at-form-intro"><strong>Tell me about your idea.</strong><span>PROJECT ENQUIRY</span></div>
+            <div class="at-field-grid"><label><span>Your name *</span><input name="name" [(ngModel)]="contactForm.name" type="text" autocomplete="name" minlength="2" required placeholder="Your name"></label><label><span>WhatsApp number *</span><input name="phone" [(ngModel)]="contactForm.phone" type="tel" autocomplete="tel" required placeholder="+94 77 123 4567"></label></div>
+            <div class="at-field-grid"><label><span>Service</span><select name="service" [(ngModel)]="contactForm.service"><option value="">Discuss first</option><option *ngFor="let option of data.contact.serviceOptions" [value]="option">{{ option }}</option></select></label><label><span>Budget</span><select name="budget" [(ngModel)]="contactForm.budget"><option value="">Discuss first</option><option *ngFor="let option of data.contact.budgetOptions" [value]="option">{{ option }}</option></select></label></div>
+            <div class="at-field-grid"><label><span>Timeline</span><select name="timeline" [(ngModel)]="contactForm.timeline"><option value="">Flexible</option><option *ngFor="let option of data.contact.timelineOptions" [value]="option">{{ option }}</option></select></label><label><span>Stage</span><select name="stage" [(ngModel)]="contactForm.stage"><option value="">New idea</option><option *ngFor="let option of data.contact.stageOptions" [value]="option">{{ option }}</option></select></label></div>
+            <label class="at-message"><span>Project details *</span><textarea name="message" [(ngModel)]="contactForm.message" minlength="20" required rows="4" placeholder="What do you want to build?"></textarea></label>
+            <label class="at-consent"><input type="checkbox" name="consent" [(ngModel)]="contactForm.consent" required><span>I agree to prepare these details as a WhatsApp enquiry.</span></label>
+            <button class="at-form-button" type="submit">Continue to WhatsApp <span aria-hidden="true">↗</span></button>
+            <p role="status" aria-live="polite" class="at-form-status">{{ enquiryStatus }}</p>
+          </form>
         </div>
-        <form class="project-form glass-panel" (ngSubmit)="submitEnquiry()">
-          <div class="form-step-head"><span>WhatsApp project enquiry</span><small>Usually 2–3 minutes</small></div>
-          <div class="form-grid two"><label><span>Name *</span><input name="name" [(ngModel)]="contactForm.name" autocomplete="name" minlength="2" required placeholder="Your name"></label><label><span>WhatsApp number *</span><input name="phone" [(ngModel)]="contactForm.phone" autocomplete="tel" type="tel" required placeholder="+94 77 123 4567"></label></div>
-          <div class="form-grid two"><label><span>Service</span><select name="service" [(ngModel)]="contactForm.service"><option value="">Discuss first</option><option *ngFor="let item of data.contact.serviceOptions" [value]="item">{{ item }}</option></select></label><label><span>Budget range</span><select name="budget" [(ngModel)]="contactForm.budget"><option *ngFor="let item of data.contact.budgetOptions" [value]="item">{{ item }}</option></select></label></div>
-          <div class="form-grid two"><label><span>Preferred timeline</span><select name="timeline" [(ngModel)]="contactForm.timeline"><option *ngFor="let item of data.contact.timelineOptions" [value]="item">{{ item }}</option></select></label><label><span>Project stage</span><select name="stage" [(ngModel)]="contactForm.stage"><option *ngFor="let item of data.contact.stageOptions" [value]="item">{{ item }}</option></select></label></div>
-          <label><span>Project details *</span><textarea name="message" [(ngModel)]="contactForm.message" minlength="20" required rows="5" placeholder="What are you trying to build, who is it for, and what result do you need?"></textarea></label>
-          <label class="consent"><input name="consent" type="checkbox" [(ngModel)]="contactForm.consent" required><span>I confirm that these details can be prepared as a WhatsApp project enquiry.</span></label>
-          <button class="button button-primary submit-project" type="submit"><span>Continue to WhatsApp</span> ↗</button>
-          <p class="form-status" role="status" aria-live="polite">{{ enquiryStatus }}</p>
-        </form>
       </div>
     </section>
   </main>
 
-  <footer class="footer"><div class="shell footer-grid"><div><a class="brand" href="/home" (click)="navigateSection($event, 'home')"><span class="brand-mark">CK</span><span class="brand-copy"><strong>{{ data.site.shortName }}</strong><small>Developer OS</small></span></a><p>{{ data.extras.footerDescription }}</p></div><div><small>Explore</small><a href="/services" (click)="navigateSection($event, 'services')">Services</a><a href="/projects" (click)="navigateSection($event, 'projects')">Projects</a><a href="/lab" (click)="navigateSection($event, 'lab')">Design Lab</a><a href="/contact" (click)="navigateSection($event, 'contact')">Contact</a></div><div><small>Connect</small><a *ngFor="let social of socialLinks" [href]="social.url" target="_blank" rel="noopener noreferrer">{{ social.label }}</a><a [href]="whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a></div><div><small>System</small><button type="button" (click)="commandOpen = true">Command menu</button><button type="button" (click)="themeMenuOpen = !themeMenuOpen">Switch theme</button></div></div><div class="shell footer-bottom"><span>© {{ currentYear }} {{ data.site.ownerName }}. All rights reserved.</span><span>Built with Angular, TypeScript &amp; Supabase.</span><a href="/home" (click)="navigateSection($event, 'home')">Back to top ↑</a></div></footer>
+  <footer class="at-footer"><div class="at-wrap at-footer-inner"><a class="at-footer-mark" href="/home" (click)="navigateSection($event,'home')">CK<span>.</span></a><p>Thoughtful software. Real-world impact.</p><a href="/home" (click)="navigateSection($event,'home')">BACK TO TOP ↑</a></div><div class="at-wrap at-footer-lower"><span>© {{ currentYear }} {{ data.site.ownerName }}</span><span>MADE WITH PURPOSE IN SRI LANKA</span></div></footer>
 
-  <button type="button" class="assistant-launcher" aria-label="Open portfolio assistant" (click)="assistantOpen = !assistantOpen"><span>✦</span></button>
-  <aside class="assistant-panel glass-panel" *ngIf="assistantOpen" role="dialog" aria-modal="false" aria-label="Portfolio assistant">
-    <header><div><span>✦</span><div><strong>Ask Chris Klegar OS</strong><small>Portfolio guide · FAQ assistant</small></div></div><button type="button" aria-label="Close assistant" (click)="assistantOpen = false">×</button></header>
-    <div class="assistant-messages"><div class="assistant-message" *ngFor="let message of messages" [class.bot]="message.role === 'bot'" [class.user]="message.role === 'user'">{{ message.text }}</div></div>
-    <div class="assistant-suggestions"><button type="button" (click)="sendSuggested('What technologies does Chris use?')">What technologies does Chris use?</button><button type="button" (click)="sendSuggested('What is Chris’s role at X10 THINK?')">What is Chris's role?</button><button type="button" (click)="sendSuggested('How do I start a project?')">Start a project</button></div>
-    <form (ngSubmit)="sendQuestion()"><input name="ask" [(ngModel)]="ask" aria-label="Ask a question" placeholder="Ask about skills or projects…"><button type="submit" aria-label="Send question">↗</button></form>
-  </aside>
-  <div class="command-palette" *ngIf="commandOpen" role="dialog" aria-modal="true" aria-label="Command menu"><div class="command-backdrop" (click)="commandOpen = false"></div><div class="command-window glass-panel"><header><span>⌕</span><input name="commands" [(ngModel)]="commandSearch" placeholder="Search sections…" aria-label="Search site sections"><button type="button" (click)="commandOpen = false">ESC</button></header><div class="command-body"><p>QUICK NAVIGATION</p><div><button type="button" *ngFor="let cmd of filteredCommands" (click)="openCommand(cmd.href)"><span>↗</span><div><strong>{{ cmd.label }}</strong><small>Jump to section</small></div></button></div></div></div></div>
-  <a class="back-to-top visible" href="/home" (click)="navigateSection($event, 'home')" aria-label="Back to top">↑</a>
+  <button type="button" class="at-chat-toggle" [attr.aria-expanded]="assistantOpen" aria-label="Toggle portfolio assistant" (click)="assistantOpen = !assistantOpen">{{ assistantOpen ? '×' : '✳' }}</button>
+  <aside *ngIf="assistantOpen" class="at-chat" role="dialog" aria-label="Portfolio assistant"><header><strong>ASK ABOUT MY WORK</strong><button type="button" aria-label="Close assistant" (click)="assistantOpen=false">×</button></header><div class="at-chat-messages"><p *ngFor="let message of messages" [class.at-message-mine]="message.role === 'user'">{{ message.text }}</p></div><form (ngSubmit)="sendQuestion()"><input name="question" [(ngModel)]="ask" type="text" placeholder="Ask a question…" aria-label="Ask a question"><button type="submit" aria-label="Send message">↗</button></form></aside>
 </div>

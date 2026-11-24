@@ -9,7 +9,7 @@ import { adminGuard } from './core/admin.guard';
 /** These are public section URLs; project details and /admin stay separate. */
 const portfolioSections = [
   'home', 'about', 'services', 'skills', 'projects',
-  'journey', 'contact', 'design', 'lab', 'principles'
+  'journey', 'contact'
 ] as const;
 
 const sectionGuard: CanActivateFn = route => {
@@ -39,6 +39,11 @@ export const routes: Routes = [
     canActivate: [adminGuard],
     title: 'Portfolio Studio — Dashboard'
   },
+
+  // Redirect bookmarks from retired presentation-only sections.
+  { path: 'design', pathMatch: 'full', redirectTo: 'projects' },
+  { path: 'lab', pathMatch: 'full', redirectTo: 'skills' },
+  { path: 'principles', pathMatch: 'full', redirectTo: 'about' },
 
   // Reuse one portfolio component, preserving the current one-page layout.
   {

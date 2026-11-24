@@ -1,7 +1,8 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { Component, Inject, Input, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, Inject, Input, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 import { CmsStoreService } from '../core/cms-store.service';
 import { PortfolioContent, assetUrl, safeUrl, slugify } from '../models/content';
@@ -14,9 +15,13 @@ interface ChatMessage { role: 'bot' | 'user'; text: string; }
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './portfolio.component.html'
 })
-export class PortfolioComponent implements OnInit {
+export class PortfolioComponent implements OnInit, AfterViewInit {
   @Input() previewContent: PortfolioContent | null = null;
   private readonly store = inject(CmsStoreService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly destroyRef = inject(DestroyRef);
+  private hasHandledInitialSection = false;
   private readonly title = inject(Title);
   private readonly meta = inject(Meta);
   readonly resourceUrl = assetUrl;
@@ -43,6 +48,7 @@ export class PortfolioComponent implements OnInit {
 
   constructor(@Inject(DOCUMENT) private document: Document) {}
   get data(): PortfolioContent { return this.previewContent || this.store.content(); }
+  get activeSection(): string { return this.route.snapshot.paramMap.get('section') || 'home'; }
   get visibleProjects(): any[] {
     return (this.data.projects.items || []).filter((item: any) => item && item.visible !== false);
   }
@@ -61,22 +67,70 @@ export class PortfolioComponent implements OnInit {
   }
   get filteredCommands(): { label: string; href: string }[] {
     return [
-      { label: 'Homepage', href: '#home' },
-      { label: 'About me', href: '#about' },
-      { label: 'Selected projects', href: '#projects' },
-      { label: 'Services', href: '#services' },
-      { label: 'Skills and toolkit', href: '#skills' },
-      { label: 'Journey', href: '#journey' },
-      { label: 'Contact', href: '#contact' }
+      { label: 'Homepage', href: '/home' },
+      { label: 'About me', href: '/about' },
+      { label: 'Selected projects', href: '/projects' },
+      { label: 'Services', href: '/services' },
+      { label: 'Skills and toolkit', href: '/skills' },
+      { label: 'Journey', href: '/journey' },
+      { label: 'Contact', href: '/contact' }
     ].filter(item => item.label.toLowerCase().includes(this.commandSearch.toLowerCase()));
   }
 
   async ngOnInit(): Promise<void> {
     if (!this.previewContent) await this.store.loadPublished();
-    if (!this.previewContent) this.applySeo();
+    if (!this.previewContent) {
+      this.applySeo();
+      // Content may load asynchronously, shifting section positions.
+      this.scrollToSection(this.activeSection, false);
+    }
     this.setTheme(this.theme);
     this.messages = [{ role: 'bot', text: this.data.assistant.intro || 'Welcome! Ask about my projects and skills.' }];
   }
+  ngAfterViewInit(): void {
+    // In the admin preview this component is embedded; never redirect it.
+    if (this.previewContent) return;
+
+    this.route.paramMap
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(params => {
+        const section = params.get('section') || 'home';
+        this.scrollToSection(section, this.hasHandledInitialSection);
+        this.hasHandledInitialSection = true;
+      });
+  }
+
+  /** Keep real /section URLs while smoothly moving within this portfolio. */
+  navigateSection(event: MouseEvent, section: string): void {
+    // Preserve the browser's open-in-new-tab and modified-click behavior.
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+    event.preventDefault();
+    this.closeMenu();
+
+    if (this.previewContent || this.activeSection === section) {
+      this.scrollToSection(section, true);
+      return;
+    }
+
+    void this.router.navigateByUrl('/' + section);
+  }
+
+  private scrollToSection(section: string, smooth: boolean): void {
+    const view = this.document.defaultView;
+    if (!view) return;
+
+    view.requestAnimationFrame(() => {
+      if (section === 'home') {
+        view.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
+        return;
+      }
+      this.document.getElementById(section)?.scrollIntoView({
+        behavior: smooth ? 'smooth' : 'auto',
+        block: 'start'
+      });
+    });
+  }
+
   private applySeo(): void {
     const meta = this.data.seo;
     this.title.setTitle(meta.title || 'Chris Klegar Yoag — Portfolio');
@@ -122,9 +176,12 @@ export class PortfolioComponent implements OnInit {
   sendSuggested(question: string): void { this.ask = question; this.sendQuestion(); }
   openCommand(href: string): void {
     this.commandOpen = false;
-    if (typeof window !== 'undefined') {
-      this.document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    const section = href.replace(/^\//, '');
+    if (this.previewContent || this.activeSection === section) {
+      this.scrollToSection(section, true);
+      return;
     }
+    void this.router.navigateByUrl(href);
   }
   submitEnquiry(): void {
     const f = this.contactForm;

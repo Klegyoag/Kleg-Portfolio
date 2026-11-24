@@ -32,16 +32,9 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
   theme: 'neon' | 'light' | 'gold' = 'neon';
   activeTab: 'story' | 'process' | 'tools' | 'facts' = 'story';
   selectedSkill = 0;
-  principleIndex = 0;
   assistantOpen = false;
   ask = '';
   messages: ChatMessage[] = [];
-  commandOpen = false;
-  commandSearch = '';
-  compare = 52;
-  labHue = 355;
-  labRadius = 22;
-  labBlur = 20;
   enquiryStatus = '';
   contactForm = { name: '', phone: '', service: '', budget: '', timeline: '', stage: '', message: '', consent: false };
   currentYear = new Date().getFullYear();
@@ -49,11 +42,41 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
   constructor(@Inject(DOCUMENT) private document: Document) {}
   get data(): PortfolioContent { return this.previewContent || this.store.content(); }
   get activeSection(): string { return this.route.snapshot.paramMap.get('section') || 'home'; }
+  get heroSurname(): string {
+    const fullName = String(this.data.site.ownerName || '').trim();
+    const surname = fullName.split(/\s+/).pop() || '';
+    const shortName = String(this.data.site.shortName || '');
+    return surname && !shortName.toLowerCase().endsWith(surname.toLowerCase()) ? surname : '';
+  }
+
+  /**
+   * The home hero has its own dedicated transparent image field.
+   * Do not read site.portraitUrl here: existing published CMS rows may still
+   * contain the older studio-background photograph.
+   */
+  get heroPortraitUrl(): string {
+    return assetUrl(this.data.site.heroCutoutUrl)
+      || '/assets/klegar-hero-transparent-v4.png';
+  }
+
+  /** Recover from a broken custom image without restoring the old portrait. */
+  onHeroPortraitError(event: Event): void {
+    const image = event.target as HTMLImageElement | null;
+    const fallback = '/assets/klegar-hero-transparent-v4.png';
+    if (image && !image.src.endsWith(fallback)) image.src = fallback;
+  }
+  get heroFirstName(): string {
+    return String(this.data.site.shortName || this.data.site.ownerName || 'Chris').trim().split(/\s+/)[0] || 'Chris';
+  }
+  get heroSecondName(): string {
+    const parts = String(this.data.site.shortName || this.data.site.ownerName || 'Chris Klegar').trim().split(/\s+/);
+    return parts.slice(1).join(' ') || 'Klegar';
+  }
+
   get visibleProjects(): any[] {
     return (this.data.projects.items || []).filter((item: any) => item && item.visible !== false);
   }
   get activeSkill(): any { return this.data.skills.items?.[this.selectedSkill] || this.data.skills.items?.[0]; }
-  get activePrinciple(): any { return this.data.extras.principles?.[this.principleIndex]; }
   get hasAssistantMessages(): boolean { return this.messages.length > 0; }
   get socialLinks(): { label: string; url: string }[] {
     return [
@@ -64,17 +87,6 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
   }
   get whatsapp(): string {
     return 'https://wa.me/' + String(this.data.site.whatsappNumber || '').replace(/\D/g, '');
-  }
-  get filteredCommands(): { label: string; href: string }[] {
-    return [
-      { label: 'Homepage', href: '/home' },
-      { label: 'About me', href: '/about' },
-      { label: 'Selected projects', href: '/projects' },
-      { label: 'Services', href: '/services' },
-      { label: 'Skills and toolkit', href: '/skills' },
-      { label: 'Journey', href: '/journey' },
-      { label: 'Contact', href: '/contact' }
-    ].filter(item => item.label.toLowerCase().includes(this.commandSearch.toLowerCase()));
   }
 
   async ngOnInit(): Promise<void> {
@@ -90,6 +102,8 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     // In the admin preview this component is embedded; never redirect it.
     if (this.previewContent) return;
+    this.observeReveals();
+    this.attachHeroDissolve();
 
     this.route.paramMap
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -98,6 +112,69 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
         this.scrollToSection(section, this.hasHandledInitialSection);
         this.hasHandledInitialSection = true;
       });
+  }
+
+  /** Native scroll-linked dissolve; uses rAF and skips movement when reduced motion is requested. */
+  private attachHeroDissolve(): void {
+    const view = this.document.defaultView;
+    const hero = this.document.getElementById('home');
+    if (!view || !hero || view.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let pending = 0;
+    const update = () => {
+      pending = 0;
+      const rect = hero.getBoundingClientRect();
+      const distance = Math.max(1, Math.min(hero.offsetHeight, view.innerHeight) * 0.72);
+      const progress = Math.max(0, Math.min(1, -rect.top / distance));
+      hero.style.setProperty('--hx-exit', progress.toFixed(3));
+    };
+    const schedule = () => {
+      if (!pending) pending = view.requestAnimationFrame(update);
+    };
+    view.addEventListener('scroll', schedule, { passive: true });
+    view.addEventListener('resize', schedule, { passive: true });
+    update();
+    this.destroyRef.onDestroy(() => {
+      view.removeEventListener('scroll', schedule);
+      view.removeEventListener('resize', schedule);
+      if (pending) view.cancelAnimationFrame(pending);
+    });
+  }
+
+  /** Progressive enhancement: elements remain visible if JS or observers fail. */
+  private observeReveals(): void {
+    const view = this.document.defaultView;
+    if (!view || !('IntersectionObserver' in view)) return;
+    if (view.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const root = this.document.querySelector('.nv-root');
+    if (!root) return;
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('nv-inview');
+          observer.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.08, rootMargin: '0px 0px 40px 0px' });
+    root.querySelectorAll('.nv-reveal').forEach(item => observer.observe(item));
+    // CMS content may arrive after this view is first rendered. Observe newly
+    // inserted cards as well, so published projects never stay invisible.
+    const mutations = new MutationObserver(records => {
+      for (const record of records) {
+        record.addedNodes.forEach(node => {
+          if (!(node instanceof Element)) return;
+          if (node.matches('.nv-reveal')) observer.observe(node);
+          node.querySelectorAll('.nv-reveal').forEach(element => observer.observe(element));
+        });
+      }
+    });
+    mutations.observe(root, { childList: true, subtree: true });
+    // Defer hiding elements until observers are listening.
+    root.classList.add('nv-motion');
+    this.destroyRef.onDestroy(() => {
+      observer.disconnect();
+      mutations.disconnect();
+    });
   }
 
   /** Keep real /section URLs while smoothly moving within this portfolio. */
@@ -145,11 +222,6 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
     this.themeMenuOpen = false;
   }
   closeMenu(): void { this.mobileMenuOpen = false; }
-  stepPrinciple(delta: number): void {
-    const count = this.data.extras.principles?.length || 0;
-    if (count) this.principleIndex = (this.principleIndex + count + delta) % count;
-  }
-  resetLab(): void { this.labHue = 355; this.labRadius = 22; this.labBlur = 20; }
   sendQuestion(): void {
     const input = this.ask.trim();
     if (!input) return;
@@ -174,15 +246,6 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
     this.ask = '';
   }
   sendSuggested(question: string): void { this.ask = question; this.sendQuestion(); }
-  openCommand(href: string): void {
-    this.commandOpen = false;
-    const section = href.replace(/^\//, '');
-    if (this.previewContent || this.activeSection === section) {
-      this.scrollToSection(section, true);
-      return;
-    }
-    void this.router.navigateByUrl(href);
-  }
   submitEnquiry(): void {
     const f = this.contactForm;
     if (!f.consent || f.name.trim().length < 2 || !/^\+?[\d\s()-]{8,20}$/.test(f.phone.trim()) || f.message.trim().length < 20) {

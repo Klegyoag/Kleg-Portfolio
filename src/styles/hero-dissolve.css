@@ -1,0 +1,492 @@
+/* KLEGAR / Full-screen hero and scroll dissolve
+   Loaded after Atelier. Scoped to public portfolio; never to /admin.
+   Uses a transparent portrait, responsive viewport height, and progressive motion. */
+.at-root {
+  --hx-ink: #2b1a18;
+  --hx-maroon: #852d35;
+  --hx-maroon-dark: #63232b;
+  --hx-cream: #fbf4ee;
+  --hx-border: rgba(100, 60, 54, .18);
+}
+
+.at-root .at-header {
+  background: rgba(251, 244, 238, .91);
+  border-bottom-color: rgba(79, 44, 42, .08);
+}
+.at-root .at-monogram span,
+.at-root .at-footer-mark span,
+.at-root .at-nav a.at-current {
+  color: var(--hx-maroon);
+}
+.at-root .at-hello {
+  background: var(--hx-ink);
+}
+.at-root .at-hello:hover {
+  background: var(--hx-maroon-dark);
+}
+.at-root .at-nav a:hover {
+  color: var(--hx-maroon);
+}
+.at-root .at-nav a::after {
+  background: var(--hx-maroon);
+}
+
+/* HOME IS ONE COMPLETE VIEWPORT — About starts after this section. */
+.at-root .hx-hero {
+  --hx-exit: 0;
+  position: relative;
+  display: flex;
+  overflow: clip;
+  isolation: isolate;
+  min-height: max(700px, calc(100svh - 88px));
+  background:
+    radial-gradient(ellipse at 80% 22%, rgba(175, 96, 92, .10), transparent 56%),
+    linear-gradient(115deg, #fff8f3 0%, #fbf2ec 55%, #f5eae3 100%);
+  color: var(--hx-ink);
+}
+.at-root .hx-hero-scene {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: inherit;
+  opacity: calc(1 - var(--hx-exit) * .70);
+  filter: blur(calc(var(--hx-exit) * 7px));
+  transform: translate3d(0, calc(var(--hx-exit) * -38px), 0);
+  will-change: opacity, transform;
+}
+.at-root .hx-ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(86, 47, 44, .13) .55px, transparent .55px);
+  background-size: 24px 24px;
+  opacity: .16;
+  -webkit-mask-image: linear-gradient(90deg, transparent 45%, #000);
+  mask-image: linear-gradient(90deg, transparent 45%, #000);
+}
+.at-root .hx-shape {
+  position: absolute;
+  right: -10%;
+  bottom: -28%;
+  z-index: 0;
+  width: 72%;
+  height: 94%;
+  border-radius: 52% 0 0 0;
+  background: linear-gradient(135deg, rgba(207, 143, 133, .14), rgba(110, 30, 44, .29));
+  transform: rotate(-14deg);
+  pointer-events: none;
+}
+.at-root .hx-ghost {
+  position: absolute;
+  z-index: 1;
+  right: -7%;
+  top: 25%;
+  white-space: nowrap;
+  font: 800 clamp(98px, 13.5vw, 245px)/1 'Manrope', sans-serif;
+  letter-spacing: -.085em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(126, 61, 60, .25);
+  pointer-events: none;
+  user-select: none;
+}
+.at-root .hx-hero-content {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 4;
+  min-height: inherit;
+  pointer-events: none;
+}
+.at-root .hx-intro {
+  pointer-events: auto;
+  width: min(55%, 630px);
+  padding: 65px 0 84px;
+  position: relative;
+}
+.at-root .hx-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #8c4b45;
+  margin: 0 0 27px;
+  font-size: 11px;
+  letter-spacing: .29em;
+  font-weight: 800;
+}
+.at-root .hx-eyebrow span {
+  display: inline-block;
+  width: 37px;
+  height: 1px;
+  background: #a76158;
+}
+.at-root .hx-name {
+  color: var(--hx-ink);
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
+  font-size: clamp(76px, 9.25vw, 142px);
+  font-weight: 800;
+  line-height: .93;
+  letter-spacing: -.095em;
+  margin: 0 0 33px;
+  text-wrap: balance;
+}
+.at-root .hx-name > span {
+  display: block;
+}
+.at-root .hx-name .hx-name-accent {
+  color: var(--hx-maroon);
+}
+.at-root .hx-statement {
+  max-width: 485px;
+  padding-left: 21px;
+  border-left: 3px solid var(--hx-maroon);
+  color: #44312e;
+  font-size: clamp(17px, 1.55vw, 22px);
+  line-height: 1.48;
+  letter-spacing: -.035em;
+  margin: 0;
+}
+.at-root .hx-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 36px;
+}
+.at-root .hx-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 19px;
+  min-height: 53px;
+  padding: 13px 22px;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  line-height: 1.2;
+  transition: transform .28s ease, box-shadow .28s ease, background .28s ease;
+}
+.at-root .hx-button:hover {
+  transform: translateY(-3px);
+}
+.at-root .hx-button-primary {
+  background: var(--hx-ink);
+  color: #fff7f0;
+  box-shadow: 0 15px 34px rgba(53, 31, 29, .11);
+}
+.at-root .hx-button-primary:hover {
+  background: var(--hx-maroon-dark);
+}
+.at-root .hx-button-secondary {
+  border-color: rgba(75, 45, 42, .42);
+  background: rgba(255, 255, 255, .54);
+  color: var(--hx-ink);
+}
+.at-root .hx-button-secondary:hover {
+  background: white;
+}
+.at-root .hx-signals {
+  display: flex;
+  align-items: start;
+  gap: 18px;
+  margin-top: clamp(35px, 6.3vh, 82px);
+}
+.at-root .hx-signals > span {
+  display: grid;
+  grid-template-columns: 37px auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 10px;
+  padding-right: 18px;
+  border-right: 1px solid var(--hx-border);
+  min-width: 0;
+}
+.at-root .hx-signals > span:last-child {
+  padding-right: 0;
+  border: 0;
+}
+.at-root .hx-signals b {
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  width: 37px;
+  height: 37px;
+  border-radius: 10px;
+  background: rgba(133, 45, 53, .09);
+  color: var(--hx-maroon);
+  font-size: 15px;
+  font-weight: 800;
+}
+.at-root .hx-signals strong {
+  color: #3a2b28;
+  font-size: 10px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.at-root .hx-signals small {
+  color: #8a766e;
+  font-size: 9px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.at-root .hx-portrait-stage {
+  /* The transparent cutout floats directly on the hero background. */
+  background: none !important;
+  background-image: none !important;
+  border: 0;
+  box-shadow: none;
+  position: absolute;
+  z-index: 3;
+  right: clamp(-64px, -2vw, -10px);
+  bottom: -2%;
+  width: min(56vw, 800px);
+  /* Keep the full hairstyle safely BELOW the sticky navigation.
+     105% used to push the head above the hero and clip its curls. */
+  height: 94%;
+  pointer-events: none;
+  transform: translateZ(0);
+}
+.at-root .hx-portrait {
+  /* The source contains real alpha transparency — no rectangular photo panel. */
+  background: transparent !important;
+  background-image: none !important;
+  border: 0;
+  box-shadow: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 18px 32px rgba(48, 23, 24, .10));
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 76%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 76%, transparent 100%);
+}
+.at-root .hx-scroll {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  z-index: 7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: #7b5852;
+  transform: translateX(-50%);
+  opacity: calc(1 - var(--hx-exit));
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .26em;
+}
+.at-root .hx-scroll-track {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 32px;
+  border: 1px solid #8c5550;
+  border-radius: 99px;
+}
+.at-root .hx-scroll-track i {
+  position: absolute;
+  top: 6px;
+  left: 7px;
+  width: 2px;
+  height: 7px;
+  background: var(--hx-maroon);
+  border-radius: 2px;
+  animation: hx-scroll-indicator 1.8s ease-in-out infinite;
+}
+.at-root .hx-bottom-wash {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  bottom: -1px;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 248, 243, .62));
+  pointer-events: none;
+}
+
+/* The first section glides in out of a soft white wash. */
+.at-root .at-about {
+  position: relative;
+  z-index: 2;
+  background: #fffdf9;
+}
+.at-root .at-about::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 130px;
+  background: linear-gradient(180deg, rgba(239, 217, 206, .22), transparent);
+}
+.at-root.nv-motion .at-section .nv-reveal {
+  opacity: 0;
+  transform: translate3d(0, 34px, 0) scale(.994);
+  filter: blur(10px);
+  transition:
+    opacity .95s cubic-bezier(.2,.75,.25,1),
+    transform 1s cubic-bezier(.2,.75,.25,1),
+    filter .95s cubic-bezier(.2,.75,.25,1);
+}
+.at-root.nv-motion .at-section .nv-reveal.nv-inview {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+.at-root .at-about .nv-reveal:nth-child(2) {
+  transition-delay: 100ms;
+}
+.at-root .at-about .nv-reveal:nth-child(3) {
+  transition-delay: 160ms;
+}
+@keyframes hx-appear {
+  from { opacity: 0; transform: translate3d(0, 22px, 0); filter: blur(6px); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+@keyframes hx-scroll-indicator {
+  0%, 100% { transform: translateY(0); opacity: .75; }
+  55% { transform: translateY(10px); opacity: .22; }
+}
+.at-root .hx-appear {
+  animation: hx-appear .85s cubic-bezier(.2,.75,.25,1) both;
+}
+.at-root .hx-name.hx-appear { animation-delay: .10s; }
+.at-root .hx-statement.hx-appear { animation-delay: .19s; }
+.at-root .hx-actions.hx-appear { animation-delay: .26s; }
+.at-root .hx-signals.hx-appear { animation-delay: .34s; }
+.at-root .hx-portrait-stage.hx-appear { animation-duration: 1.1s; animation-delay: .12s; }
+
+@media (max-width: 1180px) {
+  .at-root .hx-name { font-size: clamp(67px, 9vw, 112px); }
+  .at-root .hx-signals { gap: 9px; }
+  .at-root .hx-signals > span { padding-right: 8px; }
+  .at-root .hx-portrait-stage { width: 55vw; }
+}
+@media (max-width: 900px) {
+  .at-root .hx-intro { width: 59%; }
+  .at-root .hx-name { font-size: clamp(61px, 9vw, 84px); }
+  .at-root .hx-statement { font-size: 16px; max-width: 360px; }
+  .at-root .hx-portrait-stage { right: -8%; width: 62vw; }
+  .at-root .hx-signals { display: none; }
+  .at-root .hx-ghost { right: -20%; }
+}
+@media (max-width: 800px) and (min-width: 611px) {
+  .at-root .hx-hero { min-height: max(700px, calc(100svh - 73px)); }
+}
+@media (max-width: 610px) {
+  .at-root .hx-hero {
+    min-height: max(680px, calc(100svh - 69px));
+  }
+  .at-root .hx-hero-scene {
+    display: block;
+    min-height: inherit;
+  }
+  .at-root .hx-hero-content {
+    align-items: start;
+    min-height: 0;
+    padding-top: clamp(20px, 4.1svh, 41px);
+  }
+  .at-root .hx-intro {
+    padding: 0;
+    width: 100%;
+  }
+  .at-root .hx-eyebrow {
+    margin-bottom: 14px;
+    gap: 9px;
+    font-size: 9px;
+    letter-spacing: .24em;
+  }
+  .at-root .hx-eyebrow span { width: 22px; }
+  .at-root .hx-name {
+    font-size: clamp(55px, 14.9vw, 75px);
+    line-height: .92;
+    letter-spacing: -.092em;
+    margin-bottom: 15px;
+  }
+  .at-root .hx-statement {
+    max-width: 320px;
+    padding-left: 12px;
+    border-left-width: 2px;
+    font-size: clamp(12px, 3.1vw, 14px);
+    line-height: 1.55;
+  }
+  .at-root .hx-actions {
+    margin-top: 20px;
+    gap: 9px;
+  }
+  .at-root .hx-button {
+    min-height: 43px;
+    padding: 11px 13px;
+    gap: 7px;
+    font-size: 10px;
+    border-radius: 9px;
+  }
+  .at-root .hx-signals { display: none; }
+  .at-root .hx-ghost {
+    top: 50%;
+    left: 0;
+    right: auto;
+    font-size: 27vw;
+    letter-spacing: -.085em;
+    -webkit-text-stroke-color: rgba(111, 35, 45, .18);
+  }
+  .at-root .hx-shape {
+    right: -31%;
+    bottom: -22%;
+    width: 127%;
+    height: 67%;
+    border-radius: 65% 0 0 0;
+  }
+  .at-root .hx-portrait-stage {
+    bottom: -2%;
+    right: -13%;
+    width: 104%;
+    height: 59%;
+  }
+  .at-root .hx-portrait {
+    object-position: center bottom;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 73%, transparent 99%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 73%, transparent 99%);
+  }
+  .at-root .hx-scroll {
+    left: 18px;
+    bottom: 21px;
+    transform: none;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 8px;
+    letter-spacing: .15em;
+  }
+  .at-root .hx-scroll-track { margin-left: 5px; }
+  .at-root .hx-bottom-wash { height: 62px; }
+}
+@media (max-width: 390px) {
+  .at-root .hx-name { font-size: clamp(49px, 14.2vw, 57px); }
+  .at-root .hx-hero { min-height: max(620px, calc(100svh - 69px)); }
+  .at-root .hx-hero-content { padding-top: 18px; }
+  .at-root .hx-portrait-stage { width: 100%; right: -14%; height: 56%; }
+  .at-root .hx-statement { max-width: 285px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .at-root .hx-hero-scene {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    will-change: auto;
+  }
+  .at-root .hx-appear { animation: none !important; }
+  .at-root .hx-scroll-track i { animation: none !important; }
+  .at-root.nv-motion .at-section .nv-reveal {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

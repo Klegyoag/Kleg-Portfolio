@@ -11,8 +11,8 @@ import { assetUrl, safeUrl, slugify } from '../models/content';
   template: `
     <div class="detail-page">
       <header class="detail-header shell">
-        <a routerLink="/" class="brand"><span class="brand-mark">CK</span><span class="brand-copy"><strong>Chris Klegar</strong><small>Project archive</small></span></a>
-        <a class="detail-return" routerLink="/">← Back to portfolio</a>
+        <a routerLink="/home" class="brand"><span class="brand-mark">CK</span><span class="brand-copy"><strong>Chris Klegar</strong><small>Project archive</small></span></a>
+        <a class="detail-return" routerLink="/home">← Back to portfolio</a>
       </header>
       <main class="detail-main shell" *ngIf="project as p; else missing">
         <p class="section-label"><span></span>{{ p.category || 'Selected project' }}</p>
@@ -26,7 +26,7 @@ import { assetUrl, safeUrl, slugify } from '../models/content';
         <div class="detail-cover"><img *ngIf="resource(p.imageUrl) as image; else graphic" [src]="image" [alt]="p.title + ' project preview'"><ng-template #graphic><div class="detail-graphic"><span>CK / PROJECT</span><strong>{{ p.title }}</strong></div></ng-template></div>
         <div class="detail-bottom"><div><small>PROJECT CATEGORY</small><strong>{{ p.category || 'Development' }}</strong></div><div><small>TECHNOLOGY STACK</small><strong>{{ (p.stack || []).join(' · ') }}</strong></div></div>
       </main>
-      <ng-template #missing><main class="shell detail-missing"><h1>Project not found.</h1><p>This project may have been unpublished or its title changed.</p><a class="button button-primary" routerLink="/">Return home ↗</a></main></ng-template>
+      <ng-template #missing><main class="shell detail-missing"><h1>Project not found.</h1><p>This project may have been unpublished or its title changed.</p><a class="button button-primary" routerLink="/home">Return home ↗</a></main></ng-template>
     </div>
   `
 })

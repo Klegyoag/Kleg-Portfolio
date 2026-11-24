@@ -4,18 +4,18 @@
 
   <header class="site-header" id="siteHeader">
     <nav class="navbar shell" aria-label="Primary navigation">
-      <a class="brand" href="#home" (click)="closeMenu()">
+      <a class="brand" href="/home" (click)="navigateSection($event, 'home')">
         <span class="brand-mark">CK</span>
         <span class="brand-copy"><strong>{{ data.site.shortName }}</strong><small>Developer OS</small></span>
       </a>
       <div class="nav-links" id="navLinks" [class.open]="mobileMenuOpen">
-        <a class="nav-link" href="#home" (click)="closeMenu()">Home</a>
-        <a class="nav-link" href="#about" (click)="closeMenu()">About</a>
-        <a class="nav-link" href="#services" (click)="closeMenu()">Services</a>
-        <a class="nav-link" href="#skills" (click)="closeMenu()">Skills</a>
-        <a class="nav-link" href="#projects" (click)="closeMenu()">Projects</a>
-        <a class="nav-link" href="#journey" (click)="closeMenu()">Journey</a>
-        <a class="nav-link" href="#contact" (click)="closeMenu()">Contact</a>
+        <a class="nav-link" [class.active]="activeSection === 'home'" [attr.aria-current]="activeSection === 'home' ? 'page' : null" href="/home" (click)="navigateSection($event, 'home')">Home</a>
+        <a class="nav-link" [class.active]="activeSection === 'about'" [attr.aria-current]="activeSection === 'about' ? 'page' : null" href="/about" (click)="navigateSection($event, 'about')">About</a>
+        <a class="nav-link" [class.active]="activeSection === 'services'" [attr.aria-current]="activeSection === 'services' ? 'page' : null" href="/services" (click)="navigateSection($event, 'services')">Services</a>
+        <a class="nav-link" [class.active]="activeSection === 'skills'" [attr.aria-current]="activeSection === 'skills' ? 'page' : null" href="/skills" (click)="navigateSection($event, 'skills')">Skills</a>
+        <a class="nav-link" [class.active]="activeSection === 'projects'" [attr.aria-current]="activeSection === 'projects' ? 'page' : null" href="/projects" (click)="navigateSection($event, 'projects')">Projects</a>
+        <a class="nav-link" [class.active]="activeSection === 'journey'" [attr.aria-current]="activeSection === 'journey' ? 'page' : null" href="/journey" (click)="navigateSection($event, 'journey')">Journey</a>
+        <a class="nav-link" [class.active]="activeSection === 'contact'" [attr.aria-current]="activeSection === 'contact' ? 'page' : null" href="/contact" (click)="navigateSection($event, 'contact')">Contact</a>
       </div>
       <div class="nav-actions">
         <button type="button" class="shortcut-button" aria-label="Open quick navigation" (click)="commandOpen = true"><span>Quick actions</span><kbd>⌘ K</kbd></button>
@@ -29,7 +29,7 @@
           </div>
         </div>
         <button type="button" class="menu-toggle" aria-label="Toggle navigation" [attr.aria-expanded]="mobileMenuOpen" (click)="mobileMenuOpen = !mobileMenuOpen"><span></span><span></span><span></span></button>
-        <a class="button button-small button-outline nav-talk" href="#contact" (click)="closeMenu()">Let's Talk ↗</a>
+        <a class="button button-small button-outline nav-talk" href="/contact" (click)="navigateSection($event, 'contact')">Let's Talk ↗</a>
       </div>
     </nav>
   </header>
@@ -46,7 +46,7 @@
           <h1>{{ data.hero.line1 }} <em>{{ data.hero.accent1 }}</em><br>{{ data.hero.line2 }} <em>{{ data.hero.accent2 }}</em><br>{{ data.hero.line3 }} <em>{{ data.hero.accent3 }}</em></h1>
           <p class="hero-description">{{ data.hero.description }}</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#about">{{ data.hero.buttonText }} <span>↗</span></a>
+            <a class="button button-primary" href="/about" (click)="navigateSection($event, 'about')">{{ data.hero.buttonText }} <span>↗</span></a>
             <a class="button button-outline" *ngIf="resourceUrl(data.site.cvUrl) as cv" [href]="cv" target="_blank" rel="noopener noreferrer">Download CV ↗</a>
           </div>
           <div class="hero-meta">
@@ -65,7 +65,7 @@
           <div class="hero-dock glass-panel"><span>C#</span><span>.NET</span><span>SQL</span><span>API</span><span>JS</span><span>Git</span></div>
         </div>
       </div>
-      <a class="scroll-cue" href="#about"><span>Scroll to explore</span><i></i></a>
+      <a class="scroll-cue" href="/about" (click)="navigateSection($event, 'about')"><span>Scroll to explore</span><i></i></a>
     </section>
 
     <section class="ticker" aria-label="Technical specialties"><div class="ticker-track"><ng-container *ngFor="let label of data.hero.ticker"><span>{{ label }}</span><i>✦</i></ng-container><ng-container *ngFor="let label of data.hero.ticker"><span>{{ label }}</span><i>✦</i></ng-container></div></section>
@@ -111,7 +111,7 @@
             <div class="service-head"><span>{{ (i + 1) < 10 ? '0' + (i + 1) : i + 1 }}</span><i>{{ item.icon }}</i></div>
             <h3>{{ item.title }}</h3><p>{{ item.description }}</p>
             <div class="service-demo demo-code"><span>{{ item.icon }}</span>&nbsp; <strong>{{ item.title }}</strong></div>
-            <a href="#contact">{{ item.cta }} ↗</a>
+            <a href="/contact" (click)="navigateSection($event, 'contact')">{{ item.cta }} ↗</a>
           </article>
         </div>
       </div>
@@ -171,7 +171,7 @@
 
     <section class="section lab-section" id="lab">
       <div class="shell lab-layout"><div class="lab-console glass-panel"><div class="console-top"><div><i></i><i></i><i></i></div><span>live-interface-lab.ts</span><small>Angular preview</small></div>
-          <div class="lab-preview" [style.--lab-hue]="labHue" [style.--lab-radius]="labRadius + 'px'" [style.--lab-blur]="labBlur + 'px'"><div class="lab-card"><span class="lab-badge">Live component</span><h3>Test the interface.</h3><p>Adjust the controls and watch the component update instantly.</p><a href="#projects">Explore projects ↗</a></div><div class="lab-decoration"><i></i><i></i><i></i></div></div>
+          <div class="lab-preview" [style.--lab-hue]="labHue" [style.--lab-radius]="labRadius + 'px'" [style.--lab-blur]="labBlur + 'px'"><div class="lab-card"><span class="lab-badge">Live component</span><h3>Test the interface.</h3><p>Adjust the controls and watch the component update instantly.</p><a href="/projects" (click)="navigateSection($event, 'projects')">Explore projects ↗</a></div><div class="lab-decoration"><i></i><i></i><i></i></div></div>
         </div>
         <div class="lab-controls"><p class="section-label"><span></span>Live design lab</p><h2>{{ data.extras.labHeading1 }}<br><em>{{ data.extras.labHeading2 }}</em></h2><p>{{ data.extras.labDescription }}</p>
           <div class="control-group"><label for="accentRange"><span>Accent hue</span><output>{{ labHue }}°</output></label><input id="accentRange" type="range" min="0" max="360" [(ngModel)]="labHue"></div>
@@ -208,7 +208,7 @@
     </section>
   </main>
 
-  <footer class="footer"><div class="shell footer-grid"><div><a class="brand" href="#home"><span class="brand-mark">CK</span><span class="brand-copy"><strong>{{ data.site.shortName }}</strong><small>Developer OS</small></span></a><p>{{ data.extras.footerDescription }}</p></div><div><small>Explore</small><a href="#services">Services</a><a href="#projects">Projects</a><a href="#lab">Design Lab</a><a href="#contact">Contact</a></div><div><small>Connect</small><a *ngFor="let social of socialLinks" [href]="social.url" target="_blank" rel="noopener noreferrer">{{ social.label }}</a><a [href]="whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a></div><div><small>System</small><button type="button" (click)="commandOpen = true">Command menu</button><button type="button" (click)="themeMenuOpen = !themeMenuOpen">Switch theme</button></div></div><div class="shell footer-bottom"><span>© {{ currentYear }} {{ data.site.ownerName }}. All rights reserved.</span><span>Built with Angular, TypeScript &amp; Supabase.</span><a href="#home">Back to top ↑</a></div></footer>
+  <footer class="footer"><div class="shell footer-grid"><div><a class="brand" href="/home" (click)="navigateSection($event, 'home')"><span class="brand-mark">CK</span><span class="brand-copy"><strong>{{ data.site.shortName }}</strong><small>Developer OS</small></span></a><p>{{ data.extras.footerDescription }}</p></div><div><small>Explore</small><a href="/services" (click)="navigateSection($event, 'services')">Services</a><a href="/projects" (click)="navigateSection($event, 'projects')">Projects</a><a href="/lab" (click)="navigateSection($event, 'lab')">Design Lab</a><a href="/contact" (click)="navigateSection($event, 'contact')">Contact</a></div><div><small>Connect</small><a *ngFor="let social of socialLinks" [href]="social.url" target="_blank" rel="noopener noreferrer">{{ social.label }}</a><a [href]="whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a></div><div><small>System</small><button type="button" (click)="commandOpen = true">Command menu</button><button type="button" (click)="themeMenuOpen = !themeMenuOpen">Switch theme</button></div></div><div class="shell footer-bottom"><span>© {{ currentYear }} {{ data.site.ownerName }}. All rights reserved.</span><span>Built with Angular, TypeScript &amp; Supabase.</span><a href="/home" (click)="navigateSection($event, 'home')">Back to top ↑</a></div></footer>
 
   <button type="button" class="assistant-launcher" aria-label="Open portfolio assistant" (click)="assistantOpen = !assistantOpen"><span>✦</span></button>
   <aside class="assistant-panel glass-panel" *ngIf="assistantOpen" role="dialog" aria-modal="false" aria-label="Portfolio assistant">
@@ -218,5 +218,5 @@
     <form (ngSubmit)="sendQuestion()"><input name="ask" [(ngModel)]="ask" aria-label="Ask a question" placeholder="Ask about skills or projects…"><button type="submit" aria-label="Send question">↗</button></form>
   </aside>
   <div class="command-palette" *ngIf="commandOpen" role="dialog" aria-modal="true" aria-label="Command menu"><div class="command-backdrop" (click)="commandOpen = false"></div><div class="command-window glass-panel"><header><span>⌕</span><input name="commands" [(ngModel)]="commandSearch" placeholder="Search sections…" aria-label="Search site sections"><button type="button" (click)="commandOpen = false">ESC</button></header><div class="command-body"><p>QUICK NAVIGATION</p><div><button type="button" *ngFor="let cmd of filteredCommands" (click)="openCommand(cmd.href)"><span>↗</span><div><strong>{{ cmd.label }}</strong><small>Jump to section</small></div></button></div></div></div></div>
-  <a class="back-to-top visible" href="#home" aria-label="Back to top">↑</a>
+  <a class="back-to-top visible" href="/home" (click)="navigateSection($event, 'home')" aria-label="Back to top">↑</a>
 </div>

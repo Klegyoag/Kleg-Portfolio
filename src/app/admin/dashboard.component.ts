@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { SupabaseService } from '../core/supabase.service';
 import { CmsStoreService } from '../core/cms-store.service';
 import { DEFAULT_CONTENT } from '../data/default-content';
+import { needsContentRefresh, resolvePortfolioContent } from '../data/resolve-content';
 import { PortfolioComponent } from '../components/portfolio.component';
 import { deepClone, mergeContent, PortfolioContent, Revision, SectionKey } from '../models/content';
 import { EDITOR_SECTIONS, FieldDef, GroupDef, SectionDef } from './editor-schema';
@@ -37,6 +38,9 @@ export class AdminDashboardComponent implements OnInit {
   published: PortfolioContent = deepClone(DEFAULT_CONTENT);
   history: Revision[] = [];
   lastPublishWarning = '';
+  legacyContentDetected = false;
+  legacyDraftBackup: PortfolioContent | null = null;
+  legacyPublishedBackup: PortfolioContent | null = null;
 
   get activeSection(): SectionDef | null {
     return this.sections.find(section => section.id === this.activeId) || null;
@@ -64,12 +68,15 @@ export class AdminDashboardComponent implements OnInit {
     const [published, draft, revisions] = await Promise.all([
       this.db.content('published'), this.db.content('draft'), this.db.revisions()
     ]);
-    this.published = mergeContent(DEFAULT_CONTENT, published?.payload);
-    this.draft = mergeContent(DEFAULT_CONTENT, draft?.payload || published?.payload);
+    this.legacyPublishedBackup = needsContentRefresh(published?.payload) ? deepClone(published!.payload) : null;
+    this.legacyDraftBackup = needsContentRefresh(draft?.payload) ? deepClone(draft!.payload) : null;
+    this.legacyContentDetected = !!(this.legacyPublishedBackup || this.legacyDraftBackup);
+    this.published = resolvePortfolioContent(DEFAULT_CONTENT, published?.payload);
+    this.draft = resolvePortfolioContent(DEFAULT_CONTENT, draft?.payload || published?.payload);
     this.publishedAt = published?.updated_at || '';
     this.draftAt = draft?.updated_at || '';
     this.history = revisions;
-    this.dirty = false;
+    this.dirty = this.legacyContentDetected;
     this.error = '';
     this.store.content.set(deepClone(this.published));
   }
@@ -179,6 +186,7 @@ export class AdminDashboardComponent implements OnInit {
       } catch (error) {
         this.lastPublishWarning = 'Published successfully, but the history entry could not be saved: ' + this.errorText(error);
       }
+      this.legacyContentDetected = false;
       this.notice = 'Published! Your live website now reads the updated content from Supabase.';
     } catch (error) {
       this.error = 'Publish failed: ' + this.errorText(error);
@@ -214,12 +222,21 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   exportJson(): void {
-    const json = JSON.stringify(this.draft, null, 2);
+    this.downloadBackup(this.draft, 'draft');
+  }
+
+  exportLegacy(kind: 'draft' | 'published'): void {
+    const snapshot = kind === 'draft' ? this.legacyDraftBackup : this.legacyPublishedBackup;
+    if (snapshot) this.downloadBackup(snapshot, `legacy-${kind}`);
+  }
+
+  private downloadBackup(snapshot: PortfolioContent, label: string): void {
+    const json = JSON.stringify(snapshot, null, 2);
     const blob = new Blob([json], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `klegar-portfolio-draft-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `klegar-portfolio-${label}-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
   }

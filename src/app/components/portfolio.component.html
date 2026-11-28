@@ -5,7 +5,7 @@
     <div class="at-wrap at-header-inner">
       <a class="at-brand" href="/home" (click)="navigateSection($event, 'home')" aria-label="Chris Klegar Yoag — home">
         <span class="at-monogram">CK<span>.</span></span>
-        <span class="at-brand-line">CHRIS KLEGAR YOAG<small>SOFTWARE DEVELOPER</small></span>
+        <span class="at-brand-line">CHRIS KLEGAR YOAG<small>FULL-STACK DEVELOPER</small></span>
       </a>
       <nav class="at-nav" [class.at-nav-visible]="mobileMenuOpen" aria-label="Main navigation">
         <a href="/home" [class.at-current]="activeSection === 'home'" (click)="navigateSection($event, 'home')">Home</a>
@@ -34,7 +34,7 @@
 
         <div class="at-wrap hx-hero-content">
           <div class="hx-intro">
-            <p class="hx-eyebrow hx-appear"><span></span> SOFTWARE DEVELOPER</p>
+            <p class="hx-eyebrow hx-appear"><span></span> FULL-STACK SOFTWARE DEVELOPER</p>
             <h1 id="hx-hero-heading" class="hx-name hx-appear">
               <span>{{ heroFirstName }}</span>
               <span class="hx-name-accent">{{ heroSecondName }}</span>
@@ -89,9 +89,9 @@
           <article class="at-project nv-reveal" *ngFor="let project of visibleProjects; index as i">
             <a class="at-project-visual" [routerLink]="['/projects', slug(project.title)]" [attr.aria-label]="'Read project details: ' + project.title">
               <img *ngIf="resourceUrl(project.imageUrl) as image; else atProjectArt" [src]="image" [alt]="'Screenshot of ' + project.title" loading="lazy" />
-              <ng-template #atProjectArt><div class="at-project-placeholder"><span>PORTFOLIO / 0{{ i + 1 }}</span><strong>{{ project.title }}</strong><i aria-hidden="true">↗</i></div></ng-template>
+              <ng-template #atProjectArt><div class="at-project-placeholder"><span>PROJECT / {{ i + 1 < 10 ? "0" : "" }}{{ i + 1 }}</span><strong>{{ project.title }}</strong><i aria-hidden="true">↗</i></div></ng-template>
             </a>
-            <div class="at-project-copy"><p class="at-overline">{{ project.category || 'DIGITAL PRODUCT' }}</p><h3>{{ project.title }}</h3><p>{{ project.description }}</p><div class="at-chips"><span *ngFor="let tech of project.stack">{{ tech }}</span></div><div class="at-project-actions"><a [routerLink]="['/projects', slug(project.title)]">Project details <span>↗</span></a><a *ngIf="linkUrl(project.githubUrl) as github" [href]="github" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a *ngIf="linkUrl(project.liveUrl) as live" [href]="live" target="_blank" rel="noopener noreferrer">Visit ↗</a></div></div>
+            <div class="at-project-copy"><p class="at-overline">{{ project.category || 'DIGITAL PRODUCT' }}</p><h3>{{ project.title }}</h3><p>{{ project.description }}</p><p class="at-project-status" *ngIf="project.status"><span>{{ project.featured ? "Featured project · " : "" }}{{ project.status }}</span></p><div class="at-chips"><span *ngFor="let tech of project.stack">{{ tech }}</span></div><div class="at-project-actions"><a [routerLink]="['/projects', slug(project.title)]">Project details <span>↗</span></a><a *ngIf="linkUrl(project.githubUrl) as github" [href]="github" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a *ngIf="linkUrl(project.liveUrl) as live" [href]="live" target="_blank" rel="noopener noreferrer">Visit ↗</a></div></div>
           </article>
         </div>
         <ng-template #atNoProjects><div class="at-project-empty nv-reveal"><span class="at-overline">A COLLECTION IN PROGRESS</span><h3>More work is coming soon.</h3><p>New projects will appear here as they're published through Portfolio Studio.</p><a [href]="linkUrl(data.site.githubUrl) || 'https://github.com/Klegyoag'" target="_blank" rel="noopener noreferrer" class="at-button at-button-dark">Explore GitHub ↗</a></div></ng-template>
@@ -110,8 +110,8 @@
 
     <section id="skills" class="at-section at-skills">
       <div class="at-wrap at-skills-grid">
-        <div class="nv-reveal"><div class="at-section-head"><span class="at-section-number">04 / SKILLS</span></div><h2>{{ data.skills.displayHeading1 || "A thoughtful" }}<br><em>{{ data.skills.displayHeading2 || "technical toolkit." }}</em></h2><p>A practical set of tools for building secure, maintainable applications—from database to interface.</p><div class="at-skill-stack"><span *ngFor="let tech of data.skills.stack">{{ tech }}</span></div></div>
-        <div class="at-skill-panels nv-reveal"><button class="at-skill-panel" type="button" *ngFor="let skill of data.skills.items; index as i" [attr.aria-expanded]="selectedSkill === i" [class.at-expanded]="selectedSkill === i" (click)="selectedSkill = i"><span class="at-skill-top"><span class="at-skill-count">0{{ i + 1 }}</span><strong>{{ skill.name }}</strong><span class="at-skill-symbol">{{ selectedSkill === i ? '−' : '+' }}</span></span><span class="at-skill-content" *ngIf="selectedSkill === i">{{ skill.description }} <small>{{ skill.level }}</small></span></button></div>
+        <div class="nv-reveal"><div class="at-section-head"><span class="at-section-number">04 / SKILLS</span></div><h2>{{ data.skills.displayHeading1 || "A thoughtful" }}<br><em>{{ data.skills.displayHeading2 || "technical toolkit." }}</em></h2><p>Frontend, backend, mobile, data, APIs and applied AI — organized by project evidence.</p><div class="at-skill-stack"><span *ngFor="let tech of data.skills.stack">{{ tech }}</span></div></div>
+        <div class="at-skill-panels nv-reveal"><button class="at-skill-panel" type="button" *ngFor="let skill of data.skills.items; index as i" [attr.aria-expanded]="selectedSkill === i" [class.at-expanded]="selectedSkill === i" (click)="selectedSkill = i"><span class="at-skill-top"><span class="at-skill-count">{{ i + 1 < 10 ? "0" : "" }}{{ i + 1 }}</span><strong>{{ skill.name }}<small class="at-skill-category">{{ skill.category }}</small></strong><span class="at-skill-symbol">{{ selectedSkill === i ? '−' : '+' }}</span></span><span class="at-skill-content" *ngIf="selectedSkill === i">{{ skill.description }} <small>{{ skill.level }}</small></span></button></div>
       </div>
     </section>
 

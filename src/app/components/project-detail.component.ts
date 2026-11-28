@@ -24,6 +24,13 @@ import { assetUrl, safeUrl, slugify } from '../models/content';
           <a *ngIf="link(p.githubUrl) as github" [href]="github" class="button button-outline" rel="noopener noreferrer" target="_blank">View source ↗</a>
         </div>
         <div class="detail-cover"><img *ngIf="resource(p.imageUrl) as image; else graphic" [src]="image" [alt]="p.title + ' project preview'"><ng-template #graphic><div class="detail-graphic"><span>CK / PROJECT</span><strong>{{ p.title }}</strong></div></ng-template></div>
+        <section class="detail-case-study" *ngIf="p.problem || p.contribution || p.architecture || p.verification" aria-label="Project case study">
+          <div *ngIf="p.status"><small>PROJECT STATUS</small><p>{{ p.status }}</p></div>
+          <div *ngIf="p.problem"><small>THE PROBLEM</small><p>{{ p.problem }}</p></div>
+          <div *ngIf="p.contribution"><small>CONTRIBUTION</small><p>{{ p.contribution }}</p></div>
+          <div *ngIf="p.architecture"><small>ARCHITECTURE</small><p>{{ p.architecture }}</p></div>
+          <div *ngIf="p.verification"><small>VERIFICATION &amp; LIMITS</small><p>{{ p.verification }}</p></div>
+        </section>
         <div class="detail-bottom"><div><small>PROJECT CATEGORY</small><strong>{{ p.category || 'Development' }}</strong></div><div><small>TECHNOLOGY STACK</small><strong>{{ (p.stack || []).join(' · ') }}</strong></div></div>
       </main>
       <ng-template #missing><main class="shell detail-missing"><h1>Project not found.</h1><p>This project may have been unpublished or its title changed.</p><a class="button button-primary" routerLink="/home">Return home ↗</a></main></ng-template>

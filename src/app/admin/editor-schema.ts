@@ -30,7 +30,7 @@ export const EDITOR_SECTIONS: SectionDef[] = [
   { id:'projects', label:'Projects', icon:'◇', description:'Publish project cards and case studies with image, links and stack.', groups:[
     fields('Design headline',[f('displayHeading1','First line'),f('displayHeading2','Accent text')]),
     fields('Projects introduction',[f('heading1','Heading'),f('heading2','Highlighted heading'),f('description','Description','textarea')]),
-    collection('items','Project cards',[f('title','Project title'),f('category','Category'),f('description','Description','textarea'),f('stack','Technologies — one per line','lines'),f('imageUrl','Cover image','image'),f('liveUrl','Live URL','url'),f('githubUrl','GitHub URL','url'),f('featured','Featured','checkbox'),f('visible','Visible','checkbox')])
+    collection('items','Project cards',[f('title','Project title'),f('category','Category'),f('description','Description','textarea'),f('stack','Technologies — one per line','lines'),f('status','Project status'),f('problem','Problem','textarea'),f('contribution','Contribution','textarea'),f('architecture','Architecture','textarea'),f('verification','Verification and limits','textarea'),f('imageUrl','Cover image','image'),f('liveUrl','Live URL','url'),f('githubUrl','GitHub URL','url'),f('featured','Featured','checkbox'),f('visible','Visible','checkbox')])
   ] },
   { id:'services', label:'Services', icon:'▦', description:'Service cards, descriptions and actions.', groups:[
     fields('Design headline',[f('displayHeading1','First line'),f('displayHeading2','Accent text')]),

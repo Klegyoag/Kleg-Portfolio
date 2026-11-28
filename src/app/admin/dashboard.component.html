@@ -24,6 +24,14 @@
       <div class="studio-alert success" *ngIf="notice" role="status">{{ notice }} <button type="button" (click)="notice = ''" aria-label="Dismiss notice">×</button></div>
       <div class="studio-alert warning" *ngIf="lastPublishWarning">{{ lastPublishWarning }}</div>
 
+      <div class="studio-alert warning" *ngIf="legacyContentDetected" role="status">
+        <div><strong>Full-stack content refresh loaded.</strong> An older CMS snapshot was detected. The new projects, skills and copy are now shown in the portfolio; Supabase has not been changed. Export the original snapshots below, review your draft, then publish when ready.</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+          <button *ngIf="legacyDraftBackup" type="button" class="studio-button outlined small" (click)="exportLegacy('draft')">Export original draft</button>
+          <button *ngIf="legacyPublishedBackup" type="button" class="studio-button outlined small" (click)="exportLegacy('published')">Export original published content</button>
+        </div>
+      </div>
+
       <div class="studio-content-head">
         <div><span class="studio-eyebrow">KLEGAR PORTFOLIO / CONTENT STUDIO</span><h1>{{ activeId === 'overview' ? 'Workspace overview' : activeId === 'history' ? 'History & backups' : activeSection?.label }}</h1><p>{{ activeId === 'overview' ? 'Manage every section of your public portfolio from one beautiful workspace.' : activeId === 'history' ? 'Restore previous publications and export or import backups.' : activeSection?.description }}</p></div>
         <div class="studio-title-actions"><span class="studio-dirty" *ngIf="dirty"><span></span> Unsaved changes</span><button type="button" class="studio-button subtle" [disabled]="busy || uploading" (click)="previewOpen = true">◉ Preview</button><button type="button" class="studio-button outlined" [disabled]="busy || uploading" (click)="saveDraft()">{{ busy ? 'Saving…' : 'Save draft' }}</button><button type="button" class="studio-button primary" [disabled]="busy || uploading" (click)="publish()">Publish changes ↗</button></div>

@@ -1,0 +1,37 @@
+// Run after compiling the pure TypeScript modules: see CMS-FIX.md.
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const compiled = process.argv[2];
+if (!compiled) throw new Error('Pass the compiled module directory.');
+const { resolvePortfolioContent, needsContentRefresh } = require(path.resolve(compiled, 'data/resolve-content.js'));
+const { DEFAULT_CONTENT: defaults } = require(path.resolve(compiled, 'data/default-content.js'));
+const legacy = JSON.parse(fs.readFileSync(path.join(__dirname, '../cms-defaults.js'), 'utf8').split('window.PORTFOLIO_DEFAULTS = ')[1].trim().replace(/;$/, ''));
+assert.equal(legacy.projects.items.length, 0);
+assert.equal(legacy.skills.items.length, 6);
+assert.equal(needsContentRefresh(legacy), true);
+const resolved = resolvePortfolioContent(defaults, legacy);
+assert.equal(resolved.projects.items.length, 9);
+assert.equal(resolved.projects.items.filter(p => p.visible !== false).length, 9);
+assert.equal(resolved.skills.items.length, 15);
+assert.deepEqual(resolved.skills.stack, defaults.skills.stack);
+for (const section of ['hero','about','services','skills','journey','assistant']) assert.deepEqual(resolved[section], defaults[section]);
+assert.equal(resolved.site.role, 'Full-Stack Software Developer');
+assert.equal(resolved.site.whatsappNumber, legacy.site.whatsappNumber);
+assert.equal(legacy.projects.items.length, 0); // no in-place mutation
+assert.deepEqual(resolvePortfolioContent(defaults, null), defaults);
+const customized = JSON.parse(JSON.stringify(legacy));
+customized.projects.items = [{...defaults.projects.items[0], imageUrl:'custom.png', visible:false}, {title:'Custom project',stack:[],visible:true}];
+const preserved = resolvePortfolioContent(defaults, customized);
+assert.equal(preserved.projects.items.length,10);
+assert.equal(preserved.projects.items[0].imageUrl,'custom.png');
+assert.equal(preserved.projects.items[0].visible,false);
+assert.equal(preserved.projects.items[9].title,'Custom project');
+const current = JSON.parse(JSON.stringify(defaults));
+current.projects.items = []; current.skills.items = []; current.about.description = 'My edited description';
+assert.equal(needsContentRefresh(current), false);
+assert.deepEqual(resolvePortfolioContent(defaults,current),current);
+assert.deepEqual(resolvePortfolioContent(defaults,resolved),resolved);
+const imported = JSON.parse(fs.readFileSync(path.join(__dirname,'../cms-import/portfolio-full-stack-2026-11-28.json'),'utf8'));
+assert.deepEqual(imported, defaults);
+console.log('PASS: real legacy data -> 9 visible projects, 15 skills; fresh CMS edits, backups, custom project media and visibility preserved.');

@@ -1,6 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { DEFAULT_CONTENT } from '../data/default-content';
-import { PortfolioContent, deepClone, mergeContent } from '../models/content';
+import { PortfolioContent, deepClone } from '../models/content';
+import { resolvePortfolioContent } from '../data/resolve-content';
 import { SupabaseService } from './supabase.service';
 
 @Injectable({ providedIn: 'root' })
@@ -20,7 +21,7 @@ export class CmsStoreService {
       }
       try {
         const row = await this.db.content('published');
-        if (row?.payload) this.content.set(mergeContent(DEFAULT_CONTENT, row.payload));
+        if (row?.payload) this.content.set(resolvePortfolioContent(DEFAULT_CONTENT, row.payload));
         this.error.set('');
       } catch (error) {
         // Public portfolio must work if Supabase is temporarily offline.

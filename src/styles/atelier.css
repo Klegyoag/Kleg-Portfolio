@@ -368,3 +368,25 @@ body:has(.detail-page) { background: #f7f4ee; }
 .detail-page .detail-bottom strong { color: #272521; }
 .detail-page .detail-missing h1 { color: #272521; }
 .detail-page .detail-missing p { color: #726b64; }
+
+/* Full-stack portfolio refresh: evidence labels, case-study cards. */
+.at-skill-category { display:block; font-size:.67rem; letter-spacing:.09em; text-transform:uppercase; opacity:.72; font-weight:600; margin-top:.25rem; }
+.at-project-status { font-size:.75rem; font-weight:700; letter-spacing:.02em; color:#812d42; }
+.detail-case-study { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:2rem 0; }
+.detail-case-study > div { border:1px solid currentColor; border-radius:12px; padding:1.25rem; }
+.detail-case-study small { font-size:.72rem; letter-spacing:.1em; font-weight:700; }
+.detail-case-study p { margin:.65rem 0 0; line-height:1.65; overflow-wrap:anywhere; }
+@media(max-width:650px){ .detail-case-study{grid-template-columns:1fr;} }
+
+/* Content expansion: preserve the editorial design while making nine projects easy to scan. */
+@media(min-width:761px){
+  .at-about-values { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .at-about-values article { padding: 24px 20px 24px 0; }
+  .at-about-values article:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .at-about-values article:nth-child(n+3) { border-top: 1px solid var(--at-line); }
+}
+.at-project-copy > p.at-project-status { color: var(--at-clay-dark); font-weight: 700; margin-bottom: 12px; }
+.at-project-status span { display: inline-block; border: 1px solid var(--at-line); background: var(--at-paper); border-radius: 8px; padding: 5px 10px; }
+.at-project:nth-child(3n+1) .at-project-placeholder { background: linear-gradient(145deg,#e2d0c1,#b99782); }
+.at-project:nth-child(3n+2) .at-project-placeholder { background: linear-gradient(145deg,#e2dcd1,#b8b4a1); }
+.at-project:nth-child(3n) .at-project-placeholder { background: linear-gradient(145deg,#e2c8c6,#b88e8d); }

@@ -1,11 +1,12 @@
 import type { PortfolioContent } from "../models/content";
 
-/** Public source refresh, reviewed on 2026-11-24. LinkedIn education/work dates were not publicly verifiable. */
+/** Full-stack source refresh, reviewed on 2026-11-28. LinkedIn education/work dates were not publicly verifiable. */
 export const DEFAULT_CONTENT: PortfolioContent = {
   "site": {
+    "contentRevision": 20261128,
     "ownerName": "Chris Klegar Yoag",
     "shortName": "Chris Klegar",
-    "role": "Software Developer · Web, Mobile & APIs",
+    "role": "Full-Stack Software Developer",
     "companyRole": "Founder · X10 THINK",
     "location": "Sri Lanka",
     "whatsappNumber": "94703185080",
@@ -18,54 +19,60 @@ export const DEFAULT_CONTENT: PortfolioContent = {
     "cvUrl": ""
   },
   "hero": {
-    "introShort": "I build web and mobile applications—from clear interfaces to the APIs, data and integrations behind them.",
+    "introShort": "I build connected digital experiences across web, mobile, backend systems, databases and AI-powered applications.",
     "primaryCtaText": "Explore my work",
-    "badge": "Software developer · X10 THINK",
-    "eyebrow": "Chris Klegar Yoag · Software developer",
+    "badge": "Full-Stack Software Developer · X10 THINK",
+    "eyebrow": "Chris Klegar Yoag · Full-Stack Software Developer",
     "line1": "I engineer",
     "accent1": "systems.",
     "line2": "I build",
     "accent2": "APIs.",
     "line3": "I create",
     "accent3": "experiences.",
-    "description": "Working across Angular, ASP.NET Core, Flutter and Laravel, with a focus on usable interfaces and well-structured applications. Explore documented source projects and the way they are built.",
-    "focus": "Angular · Flutter · Backend APIs",
+    "description": "From Angular and Flutter interfaces to ASP.NET Core and Laravel APIs, relational data and AI integrations.",
+    "focus": "Frontend · Backend · Mobile · AI",
     "buttonText": "About me",
     "ticker": [
       "Angular",
       "TypeScript",
+      "C#",
       "ASP.NET Core",
+      "Laravel",
       "Flutter",
       "Dart",
-      "Laravel",
       "PostgreSQL",
       "SQL Server",
-      "Supabase"
+      "Supabase",
+      "Gemini"
     ]
   },
   "about": {
-    "displayHeading1": "Building across",
-    "displayHeading2": "web and mobile.",
-    "heading1": "Software that connects",
-    "heading2": "interfaces, data and people.",
-    "description": "I work on web interfaces, mobile apps and backend services. My public repositories include Angular portfolios, Flutter Android experiences, ASP.NET Core application architecture and Laravel API systems.",
-    "storyTitle": "Curious about the full journey from idea to working software.",
-    "storyBody": "My GitHub projects reflect hands-on exploration across Angular and TypeScript, C# and ASP.NET Core, Flutter and Dart, and Laravel with PostgreSQL. I enjoy connecting frontend experiences to real application logic, improving UX and learning through collaborative builds. Outside development, music and creative work are part of the interests I share in my GitHub profile.",
+    "displayHeading1": "Engineering across",
+    "displayHeading2": "the full stack.",
+    "heading1": "From interface",
+    "heading2": "to intelligent systems.",
+    "description": "I am a full-stack software developer working across responsive web interfaces, mobile applications, backend services, APIs and databases, with a growing focus on AI application integration.",
+    "storyTitle": "Building complete software, one system at a time.",
+    "storyBody": "My projects span Angular and TypeScript, C# and ASP.NET Core, Flutter and native Android, and Laravel with PostgreSQL. I connect user experiences to application logic and storage, document architecture and integration decisions, and test workflows as projects develop. As founder of X10 THINK, I also work on collaborative software ideas and product development.",
     "processTitle": "Understand, prototype, integrate and verify.",
-    "toolsTitle": "Tools shown in my current source projects.",
-    "factsTitle": "An overview of the work represented by my public repositories.",
+    "toolsTitle": "Technologies used in documented projects.",
+    "factsTitle": "Project-led development across the stack.",
     "milestones": [
       {
-        "title": "Web applications and CMS",
-        "description": "Angular, TypeScript, responsive portfolios and Supabase-backed content publishing."
+        "title": "Frontend & UX",
+        "description": "Angular, TypeScript and responsive application interfaces."
       },
       {
-        "title": "Mobile and Android projects",
-        "description": "Flutter/Dart app source and native Android features documented in DAYNIX and 143."
+        "title": "Backend & APIs",
+        "description": "ASP.NET Core, Laravel, REST contracts and realtime architecture."
       },
       {
-        "title": "Backend and data systems",
-        "description": "ASP.NET Core layered architectures, Laravel APIs, relational databases and realtime integration designs."
+        "title": "Mobile development",
+        "description": "Flutter, Dart and native Android integrations."
+      },
+      {
+        "title": "Data & AI integration",
+        "description": "Relational databases, content systems, Gemini and voice workflows."
       }
     ],
     "steps": [
@@ -89,202 +96,311 @@ export const DEFAULT_CONTENT: PortfolioContent = {
     "tools": [
       "Angular",
       "TypeScript",
+      "HTML",
+      "CSS",
+      "JavaScript",
       "C#",
       "ASP.NET Core",
+      "PHP",
+      "Laravel",
       "Flutter",
       "Dart",
       "Kotlin",
-      "Laravel",
-      "PHP",
-      "PostgreSQL",
       "SQL Server",
+      "PostgreSQL",
+      "SQLite",
       "Supabase",
+      "Gemini",
       "Git",
       "GitHub",
       "Vercel"
     ],
     "facts": [
       {
-        "label": "Current work",
-        "value": "Web · Mobile · APIs"
+        "label": "Focus",
+        "value": "Full-stack development"
       },
       {
-        "label": "Project evidence",
-        "value": "Public GitHub repositories"
+        "label": "Project archive",
+        "value": "9 documented projects"
       },
       {
-        "label": "Featured source",
-        "value": "6 documented projects"
+        "label": "Platforms",
+        "value": "Web · Mobile · Backend"
       },
       {
-        "label": "Creative interests",
-        "value": "Code · Music · Design"
+        "label": "Applied AI",
+        "value": "Assistant & voice integrations"
       }
     ]
   },
   "services": {
     "displayHeading1": "What I",
     "displayHeading2": "build.",
-    "heading1": "From an idea",
-    "heading2": "to working software.",
-    "description": "Areas of hands-on work represented in my GitHub projects. For new collaborations, scope, timelines and availability can be discussed directly.",
+    "heading1": "Full-stack development",
+    "heading2": "from idea to integration.",
+    "description": "Explore the development areas represented by my projects. Scope, availability and implementation requirements are discussed individually.",
     "items": [
       {
-        "title": "Angular Web Applications",
-        "description": "Responsive web interfaces, dashboards and content-driven websites with TypeScript and reusable components.",
+        "title": "Frontend Engineering",
+        "description": "Angular, TypeScript and responsive web interfaces, dashboards and content sites.",
         "cta": "Discuss a web app",
         "icon": "WEB"
       },
       {
-        "title": "Flutter Mobile Experiences",
-        "description": "Cross-platform UI, task and note workflows, Android integration and app interaction patterns.",
-        "cta": "Discuss mobile work",
-        "icon": "APP"
-      },
-      {
-        "title": "ASP.NET Core Backend Systems",
-        "description": "Layered C# APIs, domain boundaries, database integration and realtime-ready service architecture.",
+        "title": "Backend Engineering",
+        "description": "C# / ASP.NET Core and PHP / Laravel backend applications and business logic.",
         "cta": "Discuss a backend",
-        "icon": ".NET"
-      },
-      {
-        "title": "Laravel & REST APIs",
-        "description": "API contracts, authentication flows, PostgreSQL models and asynchronous or realtime integration patterns.",
-        "cta": "Discuss an API",
         "icon": "API"
       },
       {
-        "title": "CMS & Portfolio Systems",
-        "description": "Portfolio interfaces with editable content, administrative workflows and controlled publishing.",
-        "cta": "Discuss a CMS",
-        "icon": "CMS"
+        "title": "API & Realtime Integration",
+        "description": "REST contracts, client integration and realtime event workflows.",
+        "cta": "Discuss an integration",
+        "icon": "RT"
       },
       {
-        "title": "Prototyping & Integration",
-        "description": "Turning requirements into working prototypes and linking screens, endpoints and data safely.",
-        "cta": "Discuss an idea",
-        "icon": "UX"
+        "title": "Database & CMS Development",
+        "description": "Relational storage, mobile persistence and content publishing workflows.",
+        "cta": "Discuss a data system",
+        "icon": "DB"
+      },
+      {
+        "title": "Mobile App Development",
+        "description": "Flutter and native Android integration for mobile experiences.",
+        "cta": "Discuss a mobile app",
+        "icon": "APP"
+      },
+      {
+        "title": "AI Application Integration",
+        "description": "Assistant workflows, speech interfaces and model/service integration prototypes.",
+        "cta": "Discuss an AI feature",
+        "icon": "AI"
       }
     ]
   },
   "skills": {
-    "displayHeading1": "Tools I use",
-    "displayHeading2": "in practice.",
-    "heading1": "Across screens and services.",
-    "heading2": "A connected toolkit.",
+    "displayHeading1": "My technical",
+    "displayHeading2": "toolkit.",
+    "heading1": "Across the full stack.",
+    "heading2": "Built through practice.",
     "items": [
       {
         "icon": "NG",
         "short": "Angular",
         "category": "Frontend",
         "name": "Angular & TypeScript",
-        "description": "Angular frontend and portfolio projects, with typed components, routing and content-driven interfaces.",
+        "description": "Typed components, routing, forms, Angular HttpClient and responsive interfaces.",
         "meter": 0,
-        "level": "Documented in project source"
+        "level": "Project evidence: Angular portfolios; SEVPMS"
+      },
+      {
+        "icon": "WEB",
+        "short": "Web",
+        "category": "Frontend",
+        "name": "HTML, CSS & JavaScript",
+        "description": "Responsive layouts, accessibility-oriented markup, DOM interactions and browser storage.",
+        "meter": 0,
+        "level": "Project evidence: Pulse Do; portfolio"
+      },
+      {
+        "icon": ".NET",
+        "short": "C#",
+        "category": "Backend",
+        "name": "C# & ASP.NET Core",
+        "description": "Layered APIs, domain modeling, application boundaries and object-oriented programming.",
+        "meter": 0,
+        "level": "Project evidence: SEVPMS; Banking Application"
+      },
+      {
+        "icon": "PHP",
+        "short": "Laravel",
+        "category": "Backend",
+        "name": "PHP & Laravel",
+        "description": "API contracts, Laravel application structure, authentication and job integration.",
+        "meter": 0,
+        "level": "Project evidence: 143 backend staging"
+      },
+      {
+        "icon": "API",
+        "short": "REST",
+        "category": "APIs & integration",
+        "name": "REST APIs & OpenAPI",
+        "description": "Documented API contracts and client/service integration across web and mobile.",
+        "meter": 0,
+        "level": "Project evidence: 143; SEVPMS"
+      },
+      {
+        "icon": "RT",
+        "short": "Realtime",
+        "category": "APIs & integration",
+        "name": "SignalR, Reverb & Redis",
+        "description": "Realtime architecture and event-driven integrations; runtime verification depends on each project.",
+        "meter": 0,
+        "level": "Project evidence: SEVPMS; 143 backend"
+      },
+      {
+        "icon": "DB",
+        "short": "SQL",
+        "category": "Databases",
+        "name": "SQL Server & PostgreSQL",
+        "description": "Relational storage and ORM-backed application architectures with EF Core and Laravel Eloquent.",
+        "meter": 0,
+        "level": "Project evidence: SEVPMS; 143"
+      },
+      {
+        "icon": "SQL",
+        "short": "SQLite",
+        "category": "Databases",
+        "name": "SQLite & Supabase",
+        "description": "Mobile local storage, authenticated content management and publishing workflows.",
+        "meter": 0,
+        "level": "Project evidence: DAYNIX; Angular portfolio"
       },
       {
         "icon": "FL",
         "short": "Flutter",
         "category": "Mobile",
         "name": "Flutter & Dart",
-        "description": "Mobile interfaces and application features in the DAYNIX and 143 source repositories.",
+        "description": "Mobile interfaces, task workflows, application state and client/backend integration.",
         "meter": 0,
-        "level": "Documented in project source"
+        "level": "Project evidence: DAYNIX; 143; Wave"
       },
       {
         "icon": "KT",
         "short": "Android",
-        "category": "Mobile integration",
+        "category": "Mobile",
         "name": "Kotlin & Native Android",
-        "description": "Android widgets, overlays and interaction features documented in DAYNIX.",
+        "description": "Native widgets, overlays, local authentication and Android integration.",
         "meter": 0,
-        "level": "Documented in project source"
+        "level": "Project evidence: DAYNIX"
       },
       {
-        "icon": ".NET",
-        "short": "ASP.NET",
-        "category": "Backend",
-        "name": "C# & ASP.NET Core",
-        "description": "Layered .NET backend architecture with EF Core, SQL Server and SignalR in the SEVPMS starter.",
+        "icon": "AI",
+        "short": "AI",
+        "category": "AI & voice",
+        "name": "Gemini & AI Application Integration",
+        "description": "Assistant-oriented workflows, model/service integration and practical AI UX. No claim of model training.",
         "meter": 0,
-        "level": "Documented in team project"
+        "level": "Project evidence: DAYNIX"
       },
       {
-        "icon": "PHP",
-        "short": "Laravel",
-        "category": "Backend",
-        "name": "Laravel & PHP",
-        "description": "API structure, authentication, realtime and background job design in the 143 backend source.",
+        "icon": "STT",
+        "short": "Voice",
+        "category": "AI & voice",
+        "name": "Speech & Audio Technologies",
+        "description": "Speech recognition and synthesis in DAYNIX; audio-sharing and translation design in Wave.",
         "meter": 0,
-        "level": "Documented in project source"
+        "level": "Project evidence: DAYNIX; Wave (development)"
       },
       {
-        "icon": "DB",
-        "short": "Data",
-        "category": "Databases",
-        "name": "PostgreSQL & SQL Server",
-        "description": "Relational database technology specified and implemented across Laravel and ASP.NET Core repositories.",
+        "icon": "AUTH",
+        "short": "Auth",
+        "category": "Security & identity",
+        "name": "Authentication & Access Control",
+        "description": "Firebase Auth, Supabase Auth, Laravel Sanctum and native authentication integration. Provider configuration and security checks remain project-specific.",
         "meter": 0,
-        "level": "Documented in project source"
-      },
-      {
-        "icon": "SB",
-        "short": "Supabase",
-        "category": "CMS",
-        "name": "Supabase & Content Management",
-        "description": "Authentication, drafts, publishing, media and revision history in the Angular portfolio CMS.",
-        "meter": 0,
-        "level": "Documented in project source"
+        "level": "Project evidence: DAYNIX; portfolio; 143"
       },
       {
         "icon": "GIT",
-        "short": "Tools",
-        "category": "Version control",
-        "name": "Git, GitHub & Deployment",
-        "description": "Source repositories, branching workflows and Vercel-connected frontend deployment.",
+        "short": "Git",
+        "category": "Engineering workflow",
+        "name": "Git, GitHub & Vercel",
+        "description": "Version control, source collaboration, frontend deployment and documentation.",
         "meter": 0,
-        "level": "Documented project workflow"
+        "level": "Project evidence: Public repositories; portfolio"
+      },
+      {
+        "icon": "QA",
+        "short": "Tests",
+        "category": "Engineering workflow",
+        "name": "Testing & Technical Documentation",
+        "description": "Unit/widget testing, API contracts, architecture documents and review of integration limits.",
+        "meter": 0,
+        "level": "Project evidence: DAYNIX; 143; Wave"
       }
     ],
     "stack": [
       "Angular",
       "TypeScript",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "RxJS",
+      "C#",
+      ".NET",
+      "ASP.NET Core",
+      "PHP",
+      "Laravel",
+      "REST",
+      "OpenAPI",
+      "SignalR",
+      "Reverb",
+      "Redis",
+      "SQL Server",
+      "PostgreSQL",
+      "SQLite",
+      "EF Core",
+      "Eloquent",
+      "Supabase",
       "Flutter",
       "Dart",
       "Kotlin",
-      "C#",
-      "ASP.NET Core",
-      "Laravel",
-      "PHP",
-      "PostgreSQL",
-      "SQL Server",
-      "SignalR",
-      "Supabase",
+      "Android",
+      "Firebase Auth",
+      "Sanctum",
+      "Gemini",
+      "Speech-to-text",
+      "Text-to-speech",
+      "Git",
+      "GitHub",
       "Vercel"
     ]
   },
   "journey": {
-    "displayHeading1": "Learning",
-    "displayHeading2": "by building.",
-    "heading1": "Project-led growth",
-    "heading2": "across platforms.",
-    "description": "Selected software milestones from documented GitHub source. Dates of education and employment are intentionally not asserted without a verifiable profile record.",
+    "displayHeading1": "Growing through",
+    "displayHeading2": "real projects.",
+    "heading1": "From foundations",
+    "heading2": "to full-stack systems.",
+    "description": "Selected development milestones and project evidence. No unverified employment dates or qualifications are asserted.",
     "items": [
       {
         "year": "2026",
-        "category": "Flutter · Android",
-        "title": "DAYNIX productivity source",
-        "description": "A Flutter application with Kotlin-powered Android features, tasks, notes, reminders and a floating assistant. Repository documents test builds and verification limits.",
+        "category": "Programming",
+        "title": "C# and frontend foundations",
+        "description": "Banking console application and Pulse Do illustrate practical programming and browser workflows.",
         "tags": [
-          "Flutter",
-          "Kotlin"
+          "C#",
+          "JavaScript"
         ]
       },
       {
         "year": "2026",
-        "category": "Backend · APIs",
-        "title": "143 integrated source and Laravel backend",
-        "description": "Project repositories collect Flutter, Laravel and browser components, with a detailed API contract and security/deployment notes. Production readiness still requires provider and device validation.",
+        "category": "Web & CMS",
+        "title": "Angular portfolio systems",
+        "description": "Responsive Angular interfaces and Supabase content publishing.",
+        "tags": [
+          "Angular",
+          "Supabase"
+        ]
+      },
+      {
+        "year": "2026",
+        "category": "Mobile & AI",
+        "title": "DAYNIX productivity companion",
+        "description": "Flutter, Android widgets, local data and assistant/voice integration.",
+        "tags": [
+          "Flutter",
+          "Kotlin",
+          "Gemini"
+        ]
+      },
+      {
+        "year": "2026",
+        "category": "Full stack",
+        "title": "143 application and API source",
+        "description": "Mobile, Laravel backend and linked-browser source; provider/device validation remains.",
         "tags": [
           "Flutter",
           "Laravel",
@@ -293,56 +409,81 @@ export const DEFAULT_CONTENT: PortfolioContent = {
       },
       {
         "year": "2026",
-        "category": "Team project",
-        "title": "SEVPMS layered platform starter",
-        "description": "The team README assigns Angular frontend and seat/ticket backend work to Klegar. Starter architecture includes ASP.NET Core, EF Core, SQL Server and SignalR.",
+        "category": "Team development",
+        "title": "SEVPMS & Wave",
+        "description": "Layered event platform starter and Android-first audio/translation project under development.",
         "tags": [
-          "Angular",
-          "ASP.NET Core"
-        ]
-      },
-      {
-        "year": "2026",
-        "category": "Web & CMS",
-        "title": "Angular portfolio and content dashboard",
-        "description": "Portfolio code integrates public project pages with a Supabase-backed dashboard for drafts, publishing and media.",
-        "tags": [
-          "Angular",
-          "Supabase"
+          "ASP.NET Core",
+          "Flutter",
+          "SignalR"
         ]
       }
     ]
   },
   "projects": {
     "displayHeading1": "Selected",
-    "displayHeading2": "source projects.",
-    "heading1": "Real repositories.",
-    "heading2": "Clear project status.",
-    "description": "Selected public GitHub repositories, with documented stack and status. Team work and development-stage source are identified rather than presented as finished products.",
+    "displayHeading2": "software projects.",
+    "heading1": "Real software.",
+    "heading2": "Transparent progress.",
+    "description": "Explore applications, backend services, mobile experiences and team projects. Each case study includes the stack, scope, contribution and current verification status.",
     "items": [
       {
         "title": "DAYNIX — Productivity Companion",
-        "category": "Flutter · Android · Source v1.0",
-        "description": "Productivity app source covering tasks, notes, reminders, floating pet interactions and native Android integrations. The README documents test APKs, not a verified public-store release.",
+        "category": "Mobile · AI integration · Test builds",
+        "description": "Android productivity companion with tasks, notes, reminders, widgets and a floating assistant. Source includes Gemini-facing task assistance, speech recognition, text-to-speech and optional device/account authentication.",
         "stack": [
           "Flutter",
           "Dart",
           "Kotlin",
-          "Android"
+          "SQLite",
+          "Firebase Auth",
+          "Gemini",
+          "Speech-to-text",
+          "Text-to-speech"
         ],
         "imageUrl": "",
         "liveUrl": "",
         "githubUrl": "https://github.com/Klegyoag/Daynix",
         "featured": true,
-        "visible": true
+        "visible": true,
+        "status": "Development / test-signed Android APKs",
+        "problem": "Bring productivity tools and voice-assisted task capture into a single mobile workspace.",
+        "contribution": "Project source documents Flutter interfaces, Android integration, local persistence and assistant workflows; individual feature ownership has not been independently audited.",
+        "architecture": "Flutter UI → native Kotlin widgets/overlay → SQLite; optional Firebase account and assistant integration.",
+        "verification": "The README documents v1.0.0 test APKs, not an app-store release. Firebase requires configuration; local notes and tasks do not sync."
+      },
+      {
+        "title": "143 — Mobile & Web Source Collection",
+        "category": "Full stack · Mobile · Development",
+        "description": "Integrated mobile, API and linked-browser application source for private messaging, shared memories and account pairing.",
+        "stack": [
+          "Flutter",
+          "Dart",
+          "Laravel",
+          "PHP",
+          "PostgreSQL",
+          "REST API",
+          "Reverb"
+        ],
+        "imageUrl": "",
+        "liveUrl": "",
+        "githubUrl": "https://github.com/Klegyoag/143",
+        "featured": true,
+        "visible": true,
+        "status": "Development / QA pending",
+        "problem": "Connect mobile and browser experiences to a shared backend.",
+        "contribution": "Integrated source collection covering mobile, backend and linked-browser workflows; individual feature ownership has not been independently audited.",
+        "architecture": "Flutter client → Laravel API → PostgreSQL; linked browser client and realtime events.",
+        "verification": "Mobile unit/widget results are documented; backend runtime, device and provider checks remain open."
       },
       {
         "title": "SEVPMS — Event, Venue & Parking Platform",
-        "category": "Team project · Architecture starter",
-        "description": "Angular and ASP.NET Core layered starter with SQL Server and SignalR. The team README assigns Chris Angular frontend and seat/ticket backend work; the starter is not claimed to be a completed platform.",
+        "category": "Full stack · Team project · Starter",
+        "description": "Layered event, venue and parking platform starter. My assigned contribution is Angular frontend and seat/ticket backend work.",
         "stack": [
           "Angular",
           "TypeScript",
+          "C#",
           "ASP.NET Core",
           "EF Core",
           "SQL Server",
@@ -352,50 +493,44 @@ export const DEFAULT_CONTENT: PortfolioContent = {
         "liveUrl": "",
         "githubUrl": "https://github.com/Klegyoag/Nvent-Final-Check",
         "featured": true,
-        "visible": true
+        "visible": true,
+        "status": "Team architecture starter",
+        "problem": "Organize event reservations, venue management and parking into a modular platform.",
+        "contribution": "Angular frontend and seat/ticket backend domain (documented team assignment).",
+        "architecture": "Angular HttpClient → ASP.NET Core API → application/domain/infrastructure layers → SQL Server; SignalR realtime layer.",
+        "verification": "The README explicitly identifies this as a starter, not a completed platform."
       },
       {
-        "title": "143 — Mobile & Web Source Collection",
-        "category": "Flutter · Laravel · Development",
-        "description": "A collection of Flutter mobile, Laravel backend and linked-browser source for private messaging, shared memories and account pairing. The README lists remaining production QA and provider checks.",
+        "title": "Wave — Real-Time Translation & Multi-Device Audio Sharing",
+        "category": "Mobile · Audio · Team project",
+        "description": "Android-first team project for nearby group audio sharing and translated speech/captions. Wi-Fi and hotspot transport, Bluetooth research and translation provider integration are design areas.",
         "stack": [
           "Flutter",
           "Dart",
-          "Laravel",
-          "PHP",
-          "PostgreSQL"
+          "Android",
+          "Wi-Fi LAN",
+          "Bluetooth research",
+          "Speech & translation"
         ],
+        "githubUrl": "https://github.com/X10THINK/Wave-Real-Time-Translation-Multi-Device-Audio-Sharing",
         "imageUrl": "",
         "liveUrl": "",
-        "githubUrl": "https://github.com/Klegyoag/143",
         "featured": true,
-        "visible": true
-      },
-      {
-        "title": "143 Backend — API & Realtime",
-        "category": "Backend · Staging source",
-        "description": "Laravel and PostgreSQL backend package with API contracts, authentication/recovery flows, realtime interfaces and deployment configuration. The repository states that full runtime and provider verification is still required.",
-        "stack": [
-          "Laravel",
-          "PHP",
-          "PostgreSQL",
-          "Redis",
-          "Reverb",
-          "REST API"
-        ],
-        "imageUrl": "",
-        "liveUrl": "",
-        "githubUrl": "https://github.com/Klegyoag/143-backend-staging",
-        "featured": false,
-        "visible": true
+        "visible": true,
+        "status": "Active development / incremental source integration",
+        "problem": "Help groups access shared audio and multilingual communication.",
+        "contribution": "Organization project repository; personal responsibilities and individual contributions have not been independently verified.",
+        "architecture": "Host/receiver sessions, local media transport, and separate speech/translation/synthesis services.",
+        "verification": "The repository contains incremental Flutter source and engineering documentation, not a complete standalone build. Bluetooth relay, synchronization, translation and device compatibility remain under development."
       },
       {
         "title": "Klegar Portfolio — Angular CMS",
-        "category": "Web · Portfolio · CMS",
-        "description": "Angular portfolio with project routes and a Supabase-powered content dashboard for draft editing, publishing, media and revisions.",
+        "category": "Frontend · CMS · Web",
+        "description": "Responsive Angular portfolio with project routes, authenticated content editing, drafts, publishing, media and revision history.",
         "stack": [
           "Angular",
           "TypeScript",
+          "RxJS",
           "Supabase",
           "Vercel"
         ],
@@ -403,12 +538,41 @@ export const DEFAULT_CONTENT: PortfolioContent = {
         "liveUrl": "https://kleg-portfolio.vercel.app/",
         "githubUrl": "https://github.com/Klegyoag/Kleg-Portfolio",
         "featured": true,
-        "visible": true
+        "visible": true,
+        "status": "Source available / live website",
+        "problem": "Present technical work with content that can be maintained without rebuilding every page.",
+        "contribution": "Angular portfolio and CMS source, public site and administrator workflows.",
+        "architecture": "Angular components → Supabase Auth and content store → draft/published revisions; Vercel frontend hosting.",
+        "verification": "Source and live URL are available; live content depends on the published CMS payload."
+      },
+      {
+        "title": "143 Backend — API & Realtime",
+        "category": "Backend · API · Staging",
+        "description": "Laravel backend with documented API contracts, authentication, realtime events, storage and background jobs.",
+        "stack": [
+          "PHP",
+          "Laravel",
+          "PostgreSQL",
+          "Sanctum",
+          "Reverb",
+          "Redis",
+          "OpenAPI"
+        ],
+        "imageUrl": "",
+        "liveUrl": "",
+        "githubUrl": "https://github.com/Klegyoag/143-backend-staging",
+        "featured": false,
+        "visible": true,
+        "status": "Staging source / runtime validation pending",
+        "problem": "Provide backend services for mobile and browser clients.",
+        "contribution": "Backend source, contract documentation and deployment configuration.",
+        "architecture": "Laravel API and Sanctum → PostgreSQL; Reverb realtime, Redis and storage integrations.",
+        "verification": "Composer dependencies are documented; production provider and runtime verification remain open."
       },
       {
         "title": "Malik Muncif — Portfolio",
-        "category": "Angular · Portfolio source",
-        "description": "An Angular portfolio repository with project case studies, responsive transitions, a downloadable CV and a serverless contact endpoint. The README notes that contact delivery requires deployment credentials.",
+        "category": "Frontend · Web",
+        "description": "Angular portfolio source with responsive sections, case studies, downloadable CV and a serverless contact endpoint.",
         "stack": [
           "Angular",
           "TypeScript",
@@ -418,7 +582,53 @@ export const DEFAULT_CONTENT: PortfolioContent = {
         "liveUrl": "https://muncif.vercel.app/",
         "githubUrl": "https://github.com/Klegyoag/Muncif-Portfolio",
         "featured": false,
-        "visible": true
+        "visible": true,
+        "status": "Repository available",
+        "problem": "Present a developer profile, project work and contact options.",
+        "contribution": "Portfolio repository on my GitHub; individual contribution is not independently audited.",
+        "architecture": "Angular UI and serverless contact endpoint.",
+        "verification": "Contact delivery requires configuration; live deployment is not asserted by this refresh."
+      },
+      {
+        "title": "Pulse Do — Productivity App",
+        "category": "Frontend · JavaScript · Prototype",
+        "description": "Browser-based task manager with task creation, editing, completion, filtering, local persistence and a dashboard.",
+        "stack": [
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "localStorage"
+        ],
+        "githubUrl": "https://github.com/Klegyoag/TO-DO-APP",
+        "imageUrl": "",
+        "liveUrl": "",
+        "featured": false,
+        "visible": true,
+        "status": "Source prototype",
+        "problem": "Practice building useful task-management interfaces.",
+        "contribution": "Single-page frontend and browser-side task workflows.",
+        "architecture": "HTML/CSS/JavaScript with localStorage persistence.",
+        "verification": "Local browser prototype; no hosted backend or authentication claimed."
+      },
+      {
+        "title": "Banking Application — C# Console",
+        "category": "Programming · Console · Learning project",
+        "description": "Console banking exercise modeling account details, deposits, withdrawals, balance and transaction history.",
+        "stack": [
+          "C#",
+          ".NET",
+          "OOP"
+        ],
+        "githubUrl": "https://github.com/Klegyoag/Banking-Application-UT011787",
+        "imageUrl": "",
+        "liveUrl": "",
+        "featured": false,
+        "visible": true,
+        "status": "Learning project / source available",
+        "problem": "Practice object-oriented programming and basic business logic.",
+        "contribution": "Account model, console menu and transaction operations.",
+        "architecture": "C# classes and in-memory state.",
+        "verification": "Educational exercise only, not real banking software or a secure financial system."
       }
     ]
   },
@@ -427,15 +637,15 @@ export const DEFAULT_CONTENT: PortfolioContent = {
     "displayHeading2": "in mind?",
     "heading1": "Need a reliable system",
     "heading2": "built properly?",
-    "description": "Have a web, mobile or backend idea? Share a little about your goal and timeline. The form prepares a WhatsApp message for you to review before sending.",
+    "description": "Have a web, mobile, API, database or AI integration project in mind? Share your goals and timeline. The form prepares a message for you to review before sending.",
     "serviceOptions": [
-      "Angular Web Application",
-      "Flutter Mobile App",
-      "ASP.NET Core Backend",
-      "Laravel / REST API",
-      "CMS / Portfolio",
-      "System Integration",
-      "Discuss first"
+      "Frontend engineering",
+      "Backend engineering",
+      "REST API & realtime integration",
+      "Database & CMS development",
+      "Mobile app development",
+      "AI application integration",
+      "Other / discuss first"
     ],
     "budgetOptions": [
       "Discuss first",
@@ -480,10 +690,10 @@ export const DEFAULT_CONTENT: PortfolioContent = {
         "label": "Design principle"
       }
     ],
-    "footerDescription": "Building and learning across web applications, mobile experiences and backend systems."
+    "footerDescription": "Full-stack software development across web, mobile, APIs, databases and applied AI."
   },
   "assistant": {
-    "intro": "Hi! Ask about the current GitHub projects, technologies, published source or how to get in touch.",
+    "intro": "Ask me about my full-stack projects, technical skills, AI integrations and development experience.",
     "fallback": "I can help with the projects listed on this portfolio or point you to the corresponding GitHub repository. For anything else, contact Chris directly.",
     "faqs": [
       {
@@ -538,7 +748,7 @@ export const DEFAULT_CONTENT: PortfolioContent = {
           "about",
           "identity"
         ],
-        "answer": "Chris Klegar Yoag is a Sri Lanka-based software developer. His public GitHub repositories cover Angular, Flutter, ASP.NET Core and Laravel systems."
+        "answer": "Chris Klegar Yoag is a full-stack software developer working across frontend, backend, mobile, APIs, data and AI application integration."
       },
       {
         "id": "company-role",
@@ -689,7 +899,7 @@ export const DEFAULT_CONTENT: PortfolioContent = {
           "years",
           "career"
         ],
-        "answer": "Current public source projects include DAYNIX (Flutter/Android), 143 (Flutter/Laravel), SEVPMS (Angular/ASP.NET Core starter), and Angular portfolios. Project repositories should not be read as proof of commercial launches."
+        "answer": "Explore the project archive: DAYNIX, 143, SEVPMS, Wave, Angular CMS, 143 backend, Pulse Do, Banking Application and the Muncif portfolio repository. Each has its own documented development status."
       },
       {
         "id": "education",
@@ -752,7 +962,7 @@ export const DEFAULT_CONTENT: PortfolioContent = {
           "tools",
           "skills"
         ],
-        "answer": "The GitHub sources document Angular, TypeScript, Flutter, Dart, Kotlin, C#, ASP.NET Core, Laravel, PHP, PostgreSQL, SQL Server, Supabase and Vercel."
+        "answer": "Project evidence includes Angular, TypeScript, C#, ASP.NET Core, Flutter, Dart, Kotlin, Laravel, PHP, PostgreSQL, SQL Server, SQLite, Supabase, Gemini, speech and realtime integrations."
       },
       {
         "id": "csharp",
@@ -799,7 +1009,7 @@ export const DEFAULT_CONTENT: PortfolioContent = {
           "procedure",
           "schema"
         ],
-        "answer": "GitHub projects document SQL Server in SEVPMS and PostgreSQL in 143’s Laravel backend."
+        "answer": "SQL Server and EF Core are in SEVPMS; PostgreSQL is documented in 143; SQLite is used in DAYNIX; Supabase supports portfolio content."
       },
       {
         "id": "ado",
@@ -845,7 +1055,7 @@ export const DEFAULT_CONTENT: PortfolioContent = {
           "responsive",
           "ui"
         ],
-        "answer": "Chris’s public repos include Angular/TypeScript portfolio work and Flutter/Dart mobile app interfaces."
+        "answer": "Angular, TypeScript and responsive web interfaces are shown in portfolio source; Pulse Do uses HTML, CSS and JavaScript."
       },
       {
         "id": "api-skill",
@@ -894,7 +1104,7 @@ export const DEFAULT_CONTENT: PortfolioContent = {
           "build",
           "development"
         ],
-        "answer": "Areas represented in Chris’s public projects include Angular UI, Flutter mobile apps, ASP.NET Core and Laravel APIs, CMS systems and integrations."
+        "answer": "Frontend, backend, APIs, realtime integration, databases, CMS, mobile and AI integration. Scope and availability are discussed for each project."
       },
       {
         "id": "web-service",
@@ -1178,7 +1388,7 @@ export const DEFAULT_CONTENT: PortfolioContent = {
           "phone",
           "tablet"
         ],
-        "answer": "Yes. Layouts, contact forms, navigation, interactive sections and the assistant adapt for mobile and tablet screens."
+        "answer": "Flutter/Dart and native Android development are represented by DAYNIX, 143 and Wave. Release and integration status varies."
       },
       {
         "id": "performance",
@@ -1322,7 +1532,7 @@ export const DEFAULT_CONTENT: PortfolioContent = {
           "maintainable",
           "backend"
         ],
-        "answer": "The SEVPMS repo uses layered .NET architecture; the 143 backend repo documents Laravel API and PostgreSQL structure."
+        "answer": "SEVPMS uses layered ASP.NET Core architecture, 143 uses Laravel API and relational storage, and Wave documents separate media and translation service directions."
       },
       {
         "id": "thanks",
@@ -1392,13 +1602,41 @@ export const DEFAULT_CONTENT: PortfolioContent = {
           "publishing"
         ],
         "answer": "The Angular portfolio source includes a Supabase CMS with authenticated editing, drafts, publishing, image uploads and revision history. See https://github.com/Klegyoag/Kleg-Portfolio."
+      },
+      {
+        "id": "ai-integration",
+        "examples": [
+          "what AI skills does Chris have",
+          "does Chris integrate AI"
+        ],
+        "keywords": [
+          "ai integration",
+          "gemini",
+          "speech",
+          "artificial intelligence",
+          "voice assistant"
+        ],
+        "answer": "DAYNIX documents Gemini-facing assistant workflows, speech recognition and text-to-speech. Wave documents speech and translation integration goals. This is applied AI integration, not a claim of training models."
+      },
+      {
+        "id": "wave-project",
+        "examples": [
+          "what is Wave",
+          "tell me about Wave"
+        ],
+        "keywords": [
+          "wave",
+          "audio share",
+          "translation"
+        ],
+        "answer": "Wave is an Android-first Flutter team project for shared nearby audio and translated speech/captions. Source integration is in progress; transport and translation goals require device and provider validation."
       }
     ]
   },
   "seo": {
-    "title": "Chris Klegar Yoag — Web, Mobile & Backend Developer",
-    "description": "Explore Chris Klegar Yoag’s Angular, Flutter, ASP.NET Core and Laravel source projects, skills and the story behind his software work.",
-    "keywords": "Chris Klegar Yoag, software developer, Angular, Flutter, Dart, Kotlin, ASP.NET Core, C#, Laravel, PHP, PostgreSQL, SQL Server, Supabase, Klegyoag, X10 THINK",
+    "title": "Chris Klegar Yoag | Full-Stack Software Developer",
+    "description": "Explore Chris Klegar Yoag’s full-stack software projects: Angular, .NET, Flutter, Laravel, APIs, databases and AI application integration.",
+    "keywords": "Chris Klegar Yoag, Klegyoag, full-stack developer, software developer, Angular, TypeScript, C#, ASP.NET Core, Flutter, Dart, Kotlin, Laravel, PHP, PostgreSQL, SQL Server, SQLite, Supabase, Gemini, REST API, Wave, DAYNIX, X10 THINK",
     "ogImage": "og-cover.png"
   }
 };

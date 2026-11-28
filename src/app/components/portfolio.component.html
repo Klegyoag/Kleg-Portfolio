@@ -43,6 +43,7 @@
             <div class="hx-actions hx-appear">
               <a class="hx-button hx-button-primary" href="/projects" (click)="navigateSection($event,'projects')">View my projects <span aria-hidden="true">↗</span></a>
               <a class="hx-button hx-button-secondary" href="/about" (click)="navigateSection($event,'about')">About me <span aria-hidden="true">↗</span></a>
+              <a *ngIf="cvDownloadUrl as cv" class="hx-button hx-button-secondary hx-cv-button" [href]="cv" download="Chris-Klegar-Yoag-CV.pdf" target="_blank" rel="noopener noreferrer" aria-label="Download CV (PDF)">Download CV <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></svg></a>
             </div>
             <div class="hx-signals hx-appear" aria-label="Development principles">
               <span><b aria-hidden="true">&lt;/&gt;</b><strong>Clean code</strong><small>Built to maintain</small></span>

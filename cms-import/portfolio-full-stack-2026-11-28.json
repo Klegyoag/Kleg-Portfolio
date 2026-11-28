@@ -12,7 +12,8 @@
     "instagramUrl": "https://www.instagram.com/clazzy_kleg/",
     "portraitUrl": "klegar-cutout.png",
     "heroCutoutUrl": "klegar-hero-transparent-v4.png",
-    "cvUrl": "",
+    "cvUrl": "chris-klegar-yoag-cv.pdf",
+    "showCv": true,
     "contentRevision": 20261128
   },
   "hero": {

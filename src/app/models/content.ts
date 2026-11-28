@@ -27,6 +27,11 @@ export function mergeContent(defaults: PortfolioContent, overrides: unknown): Po
   }
   return copy;
 }
+/** A blank legacy CMS link must not conceal the bundled CV. Admin can explicitly hide it. */
+export function resolveCvUrl(site: Entry): string {
+  if (site['showCv'] === false) return '';
+  return assetUrl(site['cvUrl']) || '/assets/chris-klegar-yoag-cv.pdf';
+}
 export function slugify(text: string): string {
   return String(text || '').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'project';
 }

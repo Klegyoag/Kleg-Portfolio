@@ -16,7 +16,8 @@ export const DEFAULT_CONTENT: PortfolioContent = {
     "instagramUrl": "https://www.instagram.com/clazzy_kleg/",
     "portraitUrl": "klegar-cutout.png",
     "heroCutoutUrl": "klegar-hero-transparent-v4.png",
-    "cvUrl": ""
+    "cvUrl": "chris-klegar-yoag-cv.pdf",
+    "showCv": true
   },
   "hero": {
     "introShort": "I build connected digital experiences across web, mobile, backend systems, databases and AI-powered applications.",

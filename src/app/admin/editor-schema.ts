@@ -10,7 +10,7 @@ const collection = (property: string, title: string, list: FieldDef[]): GroupDef
 export const EDITOR_SECTIONS: SectionDef[] = [
   { id:'site', label:'Profile & links', icon:'◉', description:'Personal identity, profile photo, CV, contact and socials.', groups:[
     fields('Identity',[f('ownerName','Full name'),f('shortName','Display name'),f('role','Professional headline'),f('companyRole','Company and title'),f('location','Location')]),
-    fields('Profile media',[f('portraitUrl','General profile portrait','image'),f('heroCutoutUrl','Homepage transparent portrait (PNG recommended)','image'),f('cvUrl','Downloadable CV','file')]),
+    fields('Profile media',[f('portraitUrl','General profile portrait','image'),f('heroCutoutUrl','Homepage transparent portrait (PNG recommended)','image'),f('cvUrl','Downloadable CV','file'),f('showCv','Show Download CV button','checkbox')]),
     fields('Social and contact',[f('whatsappNumber','WhatsApp number (digits only)'),f('whatsappDisplay','Phone display text'),f('githubUrl','GitHub URL','url'),f('linkedinUrl','LinkedIn URL','url'),f('instagramUrl','Instagram URL','url')])
   ] },
   { id:'hero', label:'Homepage hero', icon:'✧', description:'Main headline, introduction, buttons and technology ticker.', groups:[

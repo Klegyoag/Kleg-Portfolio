@@ -1,4 +1,4 @@
-import { deepClone, mergeContent, PortfolioContent, safeUrl, slugify } from '../models/content';
+import { assetUrl, deepClone, mergeContent, PortfolioContent, safeUrl, slugify } from '../models/content';
 
 /** Legacy CMS snapshots predate the full-stack refresh. The marker lives in JSON,
  * so no database schema changes or automatic remote writes are required. */
@@ -18,7 +18,11 @@ function repositoryKey(value: unknown): string {
  * while retaining contact settings, custom projects and explicit visibility choices.
  * Current-version snapshots remain fully editable, even if an admin removes every project. */
 export function resolvePortfolioContent(defaults: PortfolioContent, payload: unknown): PortfolioContent {
-  if (!needsContentRefresh(payload)) return mergeContent(defaults, payload);
+  if (!needsContentRefresh(payload)) {
+    const current = mergeContent(defaults, payload);
+    if (!assetUrl(current.site['cvUrl'])) current.site['cvUrl'] = defaults.site['cvUrl'];
+    return current;
+  }
   const legacy = mergeContent(defaults, payload);
   const next = deepClone(defaults);
   const raw = payload as Partial<PortfolioContent>;
@@ -26,6 +30,8 @@ export function resolvePortfolioContent(defaults: PortfolioContent, payload: unk
     const value = raw.site?.[key];
     if (typeof value === 'string') next.site[key] = value;
   }
+  if (!assetUrl(next.site['cvUrl'])) next.site['cvUrl'] = defaults.site['cvUrl'];
+  if (raw.site?.['showCv'] === false) next.site['showCv'] = false;
   // The refresh deliberately uses the verified broad location and new professional role.
   for (const key of ['budgetOptions', 'timelineOptions', 'stageOptions']) {
     if (Array.isArray(raw.contact?.[key])) next.contact[key] = deepClone(legacy.contact[key]);

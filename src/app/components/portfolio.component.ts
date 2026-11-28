@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 import { CmsStoreService } from '../core/cms-store.service';
-import { PortfolioContent, assetUrl, safeUrl, slugify } from '../models/content';
+import { PortfolioContent, assetUrl, resolveCvUrl, safeUrl, slugify } from '../models/content';
 
 interface ChatMessage { role: 'bot' | 'user'; text: string; }
 
@@ -41,6 +41,7 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
 
   constructor(@Inject(DOCUMENT) private document: Document) {}
   get data(): PortfolioContent { return this.previewContent || this.store.content(); }
+  get cvDownloadUrl(): string { return resolveCvUrl(this.data.site); }
   get activeSection(): string { return this.route.snapshot.paramMap.get('section') || 'home'; }
   get heroSurname(): string {
     const fullName = String(this.data.site.ownerName || '').trim();

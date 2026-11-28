@@ -186,6 +186,8 @@
   background: rgba(255, 255, 255, .54);
   color: var(--hx-ink);
 }
+.at-root .hx-cv-button { white-space: nowrap; }
+.at-root .hx-cv-button svg { flex-shrink: 0; }
 .at-root .hx-button-secondary:hover {
   background: white;
 }
